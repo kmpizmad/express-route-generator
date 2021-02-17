@@ -11,8 +11,8 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 
 ## Commands
 
-`add | a [options] <name>` : Adds a new route under the provided path in `-p, --path <path>` option or `rootDir` field in the config file.
-`remove | rm [options] <name>` : Removes a route by folder name
+`add | a [options] <name>:` adds a new route under the provided path in `-p, --path <path>` option or `rootDir` field in the config file.<br />
+`remove | rm [options] <name>:` removes a route by folder name
 
 ## Options
 
