@@ -26,17 +26,17 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 
 ## Options
 
-`add:`<br />
+**add:**<br />
 
-- -p | --path: defines the location of the server's `routes` folder
-- -s | --schemes: defines the location of your schemes
-- -m | --methods: defines the HTTP methods that should be generated
-- --typescript: defines the extension only (to avoid forcing predefined types on the user)
-- --no-test: skips the test file
+- **-p | --path:** defines the location of the server's `routes` folder
+- **-s | --schemes:** defines the location of your schemes
+- **-m | --methods:** defines the HTTP methods that should be generated
+- **--typescript:** defines the extension only (to avoid forcing predefined types on the user)
+- **--no-test:** skips the test file
 
-`remove:`<br />
+**remove:**<br />
 
-- -p | --path: defines the location of the server's `routes` folder
+- **-p | --path:** defines the location of the server's `routes` folder
 
 **All of the above can be defined though an `erg.config.js` file with these modifications:**
 
