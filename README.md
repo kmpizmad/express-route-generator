@@ -1,3 +1,5 @@
+# Table of Contents
+
 - [Express route generator](#express-route-generator)
   - [Installation](#installation)
   - [Commands](#commands)
