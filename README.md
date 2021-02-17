@@ -59,7 +59,7 @@ module.exports = {
 
 ## Custom Schemes
 
-ERG provides an opportunity to create your own schemes **without extensions**. The location must be defined in the configuration or in the options otherwise it'll use the built-in schemes.
+ERG provides an opportunity to create your own schemes **WITHOUT EXTENSIONS!** The location must be defined in the configuration or in the options otherwise it'll use the built-in schemes.
 
 ```
 // Example custom scheme
