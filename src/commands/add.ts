@@ -17,16 +17,17 @@ export const add = (commanderConfig: CommanderConfig) => {
   const [userFiles, userSchemes] = schemesDir ? loadSchemes(schemesDir) : [];
 
   // File generation
-  const files: string[] =
-    joinFiles(folder, ...renameFiles(name, ...userFiles)).map(
-      file => file + '.' + extension
-    ) ||
-    joinFiles(
-      folder,
-      `index.${extension}`,
-      `${name}.handlers.${extension}`,
-      `${name}.test.${extension}`
-    );
+  const files: string[] = userFiles
+    ? joinFiles(
+        folder,
+        ...renameFiles(name, ...userFiles).map(file => file + '.' + extension)
+      )
+    : joinFiles(
+        folder,
+        `index.${extension}`,
+        `${name}.handlers.${extension}`,
+        `${name}.test.${extension}`
+      );
 
   const schemes: string[] = userSchemes || [
     routerSchema(name, methods),

@@ -3,7 +3,7 @@
   "license": "MIT",
   "name": "@kmpizmad/express-route-generator",
   "description": "Generates a basic route for an Express application.",
-  "version": "v1.0.0-prereleasev1",
+  "version": "v1.0.0-release",
   "deprecated": false,
   "type": "commonjs",
   "files": [

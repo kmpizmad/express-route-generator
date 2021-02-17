@@ -14,7 +14,7 @@ CLI tool to create new endpoints / routes in an Express application.
 
 ## Installation
 
-> _npm install -g express-route-generator_
+> _npm install -g @kmpizmad/express-route-generator_
 
 Keep in mind, that due to maintenance it's better to use it from the npm registry like this:<br/>
 `npx express-route-genertor` or `npx erg` for short.

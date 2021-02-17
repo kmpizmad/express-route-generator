@@ -1,9 +1,5 @@
-# Changelog v1.0.0-prereleasev1
-
-## Added
-
-- option to create custom schemes
+# Changelog v1.0.0-release
 
 ## Fixed
 
-- bugs that appeared from the update
+- bug where cli couldn't operate without custom schemes
