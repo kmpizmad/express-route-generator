@@ -40,10 +40,10 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 
 **All of the above can be defined though an `erg.config.js` file with these modifications:**
 
-`--path` => `rootDir`<br />
-`--schemes` => `schemesDir`<br />
-`--typescript` => `language` (either `javascript` or `typescript`)<br />
-`--no-test` => `test` (`true` by default)
+**_--path_** => `rootDir`<br />
+**_--schemes_** => `schemesDir`<br />
+**_--typescript_** => `language` (either `javascript` or `typescript`)<br />
+**_--no-test_** => `test` (`true` by default)
 
 ```
 // erg.config.js
