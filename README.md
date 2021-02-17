@@ -95,7 +95,7 @@ module.exports = {
 ```
 
 ```
-// Example output of erg add generatedRoute
+// Example output of 'erg add generatedRoute'
 root
 └ src
   └ server
