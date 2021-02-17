@@ -4,32 +4,34 @@ CLI tool to create new endpoints / routes in an Express application.
 
 ## Installation
 
-`npm install -g express-route-generator`
+> _npm install -g express-route-generator_
 
-## Usage
-
-`express-route-generator add myRoute --path server/routes --methods get post`
-
-**OR**
-
-`erg add myRoute --path server/routes --methods get post`
+Keep in mind, that due to maintenance it's better to use it from the npm registry like this:<br/>
+`npx express-route-genertor` or `npx erg` for short.
 
 ## Commands
 
 `add | a [options] <name>` : Adds a new route under the provided path in `-p, --path <path>` option or `rootDir` field in the config file.
 `remove | rm [options] <name>` : Removes a route by folder name
 
-## Config
+## Options
 
-Configuration can be defined through an `erg.config.js` file or in the options.
+`add:`<br />
 
-**Options**
+- -p | --path: defines the location of the server's `routes` folder
+- -m | --methods: defines the HTTP methods that should be generated
+- --typescript: defines the extension only (to avoid forcing predefined types on the user)
+- --no-test: skips the test file
 
-`rootDir:` directory that holds all of the routes
+`remove:`<br />
 
-`extension:` `js` or `ts`
+- -p | --path: defines the location of the server's `routes` folder
 
-`methods:` provided methods will be generated in every route
+All of the above can be defined though an `erg.config.js` file with these modifications:
+
+path: `rootDir`<br />
+typescript: `language` (either `javascript` or `typescript`)<br />
+no-test: `test` (`true` by default)
 
 #### Example
 
