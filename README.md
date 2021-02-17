@@ -29,9 +29,9 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 
 **All of the above can be defined though an `erg.config.js` file with these modifications:**
 
-`--path`: rootDir<br />
-`--typescript`: language (either `javascript` or `typescript`)<br />
-`--no-test`: test (`true` by default)
+`--path` => `rootDir`<br />
+`--typescript` => `language` (either `javascript` or `typescript`)<br />
+`--no-test` => `test` (`true` by default)
 
 #### Example
 
