@@ -15,13 +15,14 @@ program
     name: 'name of the new route',
 })
     .option('-p, --path <path>', 'path of the routes root folder')
+    .option('-s, --schemes <path>', 'path of the schemes root folder')
     .option('-m, --methods <methods...>', 'accepted methods')
     .option('--typescript', 'generates the files with .ts extension', false)
     .option('--no-test', 'prevents generation of test file', false)
     .action(function (name, _a, _) {
-    var path = _a.path, methods = _a.methods, typescript = _a.typescript, test = _a.test;
+    var path = _a.path, schemes = _a.schemes, methods = _a.methods, typescript = _a.typescript, test = _a.test;
     try {
-        commands_1.add({ name: name, path: path, methods: methods, typescript: typescript, test: test });
+        commands_1.add({ name: name, path: path, schemes: schemes, methods: methods, typescript: typescript, test: test });
     }
     catch (err) {
         constants_1.errorCase(err, constants_1.fileName);

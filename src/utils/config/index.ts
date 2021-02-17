@@ -7,6 +7,7 @@ export const setupCommand = (commanderConfig: CommanderConfig): any => {
   // Config
   const {
     rootDir,
+    schemesDir,
     language,
     test: addTest,
     methods: defaultMethods,
@@ -17,6 +18,7 @@ export const setupCommand = (commanderConfig: CommanderConfig): any => {
 
   // Settings
   if (!commanderConfig.path) commanderConfig.path = rootDir;
+  if (!commanderConfig.schemes) commanderConfig.schemes = schemesDir;
   if (!commanderConfig.methods) commanderConfig.methods = defaultMethods;
   if (!commanderConfig.typescript || language === 'javascript')
     extension = 'js';

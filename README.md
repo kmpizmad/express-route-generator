@@ -1,3 +1,11 @@
+- [Express route generator](#express-route-generator)
+  - [Installation](#installation)
+  - [Commands](#commands)
+  - [Options](#options)
+  - [Custom Schemes](#custom-schemes)
+    - [Example](#example)
+  - [License](#license)
+
 # Express route generator
 
 CLI tool to create new endpoints / routes in an Express application.
@@ -19,6 +27,7 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 `add:`<br />
 
 - -p | --path: defines the location of the server's `routes` folder
+- -s | --schemes: defines the location of your schemes
 - -m | --methods: defines the HTTP methods that should be generated
 - --typescript: defines the extension only (to avoid forcing predefined types on the user)
 - --no-test: skips the test file
@@ -30,14 +39,41 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 **All of the above can be defined though an `erg.config.js` file with these modifications:**
 
 `--path` => `rootDir`<br />
+`--schemes` => `schemesDir`<br />
 `--typescript` => `language` (either `javascript` or `typescript`)<br />
 `--no-test` => `test` (`true` by default)
 
-#### Example
+```
+// erg.config.js
 
-**Example folder structure**
+module.exports = {
+  rootDir: 'src/server/routes',
+  schemesDir: 'mySchemes',
+  language: 'javascript',
+  test: true,
+  methods: ['get', 'post'],
+};
+```
+
+## Custom Schemes
+
+ERG provides an opportunity to create your own schemes **without extensions**. The location must be defined in the configuration or in the options otherwise it'll use the built-in schemes.
 
 ```
+// Example custom scheme
+
+root
+└ mySchemes
+  └ index
+  └ mySchema.handlers
+  └ mySchema.test
+```
+
+#### Example
+
+```
+// Example structure
+
 root
 └ src
   └ server
@@ -47,18 +83,17 @@ root
     └ utils
 ```
 
-**Example config file**
-
 ```
+// Example config
+
 module.exports = {
   rootDir: "src/server/routes",
   methods: ["get", "post"]
 }
 ```
 
-**Example output** - `erg add generatedRoute`
-
 ```
+// Example output of erg add generatedRoute
 root
 └ src
   └ server
@@ -72,16 +107,16 @@ root
     └ utils
 ```
 
-**generatedRoute.handlers.js**
-
 ```
+// generatedRoute.handlers.js
+
 export const getController = async (req, res, next) => {};
 export const postController = async (req, res, next) => {};
 ```
 
-**generatedRoute.test.js**
-
 ```
+// generatedRoute.test.js
+
 import supertest from "supertest";
 
 describe('generatedRoute test', () => {
@@ -102,9 +137,9 @@ describe('generatedRoute test', () => {
 });
 ```
 
-**index.js**
-
 ```
+// index.js
+
 import { Router } from 'express';
 import { getController, postController } from './generatedRoute.handlers';
 

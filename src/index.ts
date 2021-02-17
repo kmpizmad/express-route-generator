@@ -17,12 +17,13 @@ program
     name: 'name of the new route',
   })
   .option('-p, --path <path>', 'path of the routes root folder')
+  .option('-s, --schemes <path>', 'path of the schemes root folder')
   .option('-m, --methods <methods...>', 'accepted methods')
   .option('--typescript', 'generates the files with .ts extension', false)
   .option('--no-test', 'prevents generation of test file', false)
-  .action((name, { path, methods, typescript, test }, _: Command) => {
+  .action((name, { path, schemes, methods, typescript, test }, _: Command) => {
     try {
-      add({ name, path, methods, typescript, test });
+      add({ name, path, schemes, methods, typescript, test });
     } catch (err) {
       errorCase(err, fileName);
     }

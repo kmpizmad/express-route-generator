@@ -16,10 +16,12 @@ var fs_1 = require("fs");
 var path_1 = require("path");
 var constants_1 = require("../../constants");
 var setupCommand = function (commanderConfig) {
-    var _a = constants_1.loadConfig(), rootDir = _a.rootDir, language = _a.language, addTest = _a.test, defaultMethods = _a.methods;
+    var _a = constants_1.loadConfig(), rootDir = _a.rootDir, schemesDir = _a.schemesDir, language = _a.language, addTest = _a.test, defaultMethods = _a.methods;
     var extension;
     if (!commanderConfig.path)
         commanderConfig.path = rootDir;
+    if (!commanderConfig.schemes)
+        commanderConfig.schemes = schemesDir;
     if (!commanderConfig.methods)
         commanderConfig.methods = defaultMethods;
     if (!commanderConfig.typescript || language === 'javascript')
