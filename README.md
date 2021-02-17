@@ -11,7 +11,7 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 
 ## Commands
 
-`add | a [options] <name>:` adds a new route under the provided path in `-p, --path <path>` option or `rootDir` field in the config file.<br />
+`add | a [options] <name>:` adds a new route under the provided path<br />
 `remove | rm [options] <name>:` removes a route by folder name
 
 ## Options
@@ -27,11 +27,11 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 
 - -p | --path: defines the location of the server's `routes` folder
 
-All of the above can be defined though an `erg.config.js` file with these modifications:
+**All of the above can be defined though an `erg.config.js` file with these modifications:**
 
-path: `rootDir`<br />
-typescript: `language` (either `javascript` or `typescript`)<br />
-no-test: `test` (`true` by default)
+`--path`: rootDir<br />
+`--typescript`: language (either `javascript` or `typescript`)<br />
+`--no-test`: test (`true` by default)
 
 #### Example
 
