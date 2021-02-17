@@ -20,11 +20,11 @@ export const setupCommand = (commanderConfig: CommanderConfig): any => {
   if (!commanderConfig.path) commanderConfig.path = rootDir;
   if (!commanderConfig.schemes) commanderConfig.schemes = schemesDir;
   if (!commanderConfig.methods) commanderConfig.methods = defaultMethods;
-  if (!commanderConfig.typescript || language === 'javascript')
-    extension = 'js';
-  else extension = 'ts';
+  if (commanderConfig.typescript || language === 'typescript') extension = 'ts';
+  else extension = 'js';
 
-  if (!commanderConfig.test) commanderConfig.test = addTest || true;
+  if (commanderConfig.test && addTest !== undefined)
+    commanderConfig.test = addTest;
 
   if (commanderConfig.methods && commanderConfig.methods.length > 0)
     commanderConfig.methods.forEach((method: string) => method.toLowerCase());

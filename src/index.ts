@@ -20,7 +20,7 @@ program
   .option('-s, --schemes <path>', 'path of the schemes root folder')
   .option('-m, --methods <methods...>', 'accepted methods')
   .option('--typescript', 'generates the files with .ts extension', false)
-  .option('--no-test', 'prevents generation of test file', false)
+  .option('--no-test', 'prevents generation of test file')
   .action((name, { path, schemes, methods, typescript, test }, _: Command) => {
     try {
       add({ name, path, schemes, methods, typescript, test });

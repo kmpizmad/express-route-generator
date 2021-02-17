@@ -1,10 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.testSchema = void 0;
-const schemes_1 = require("../utils/schemes");
-const testSchema = (name, methods) => `import supertest from "supertest";
-
-describe('${name} test', () => {
-  ${schemes_1.tests(name, methods)}
-});`;
+var schemes_1 = require("../utils/schemes");
+var testSchema = function (name, methods) {
+    return "import supertest from \"supertest\";\n\ndescribe('" + name + " test', () => {\n  " + schemes_1.tests(name, methods) + "\n});";
+};
 exports.testSchema = testSchema;
