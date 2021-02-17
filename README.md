@@ -51,9 +51,9 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 module.exports = {
   rootDir: 'src/server/routes',
   schemesDir: 'mySchemes',
-  language: 'javascript',
-  test: true,
-  methods: ['get', 'post'],
+  language: 'javascript' /* default */,
+  test: true /* default */,
+  methods: ['get', 'post', 'put', 'patch', 'delete', 'options', 'head'] /* available methods */,
 };
 ```
 

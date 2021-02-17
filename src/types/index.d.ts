@@ -2,7 +2,7 @@ export type Config = {
   rootDir: string;
   schemesDir: string;
   language: 'javascript' | 'typescript';
-  methods: ('get' | 'post' | 'put' | 'patch' | 'delete' | 'option' | 'head')[];
+  methods: ('get' | 'post' | 'put' | 'patch' | 'delete' | 'options' | 'head')[];
   test: boolean;
 };
 
