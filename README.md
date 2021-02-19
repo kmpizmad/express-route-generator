@@ -22,7 +22,8 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 ## Commands
 
 `add | a [options] <name>:` adds a new route under the provided path<br />
-`remove | rm [options] <name>:` removes a route by folder name
+`remove | rm [options] <name>:` removes a route by folder name<br />
+`list | ls:` lists all routes
 
 ## Options
 
@@ -39,7 +40,9 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 - **_-p | --path:_** defines the location of the server's `routes` folder
 - **_-t | --test:_** removes test file only
 
-**list:** lists all routes
+**list:**
+
+- **_-p | --path:_** defines the location of the server's `routes` folder
 
 **All of the above can be defined though an `erg.config.js` file with these modifications:**
 
