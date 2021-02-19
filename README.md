@@ -1,4 +1,4 @@
-[![NPM](https://nodei.co/npm/@kmpizmad/express-route-generator.png)](https://npmjs.org/package/@kmpizmad/express-route-generator)
+![npm](https://img.shields.io/npm/v/@kmpizmad/express-route-generator)
 ![license](https://img.shields.io/github/license/kmpizmad/express-route-generator)
 ![dependencies](https://img.shields.io/depfu/kmpizmad/express-route-generator)
 
