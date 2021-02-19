@@ -1,6 +1,6 @@
-# Changelog v1.0.0
+# Changelog v1.0.1
 
 ## Fixed
 
-- bug where cli couldn't interpret `language` field
-- bug where cli couldn't interpret `test` field
+- bug where cli couldn't generate folders
+- bug where cli always expected a config file

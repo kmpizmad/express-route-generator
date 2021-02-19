@@ -3,7 +3,7 @@
   "license": "MIT",
   "name": "@kmpizmad/express-route-generator",
   "description": "Generates a basic route for an Express application.",
-  "version": "v1.0.0",
+  "version": "v1.0.1",
   "deprecated": false,
   "type": "commonjs",
   "files": [
@@ -46,6 +46,7 @@
   },
   "scripts": {
     "git": "git add . && git commit -m",
-    "build": "npm link --force && rm -rf bin package-lock.json && tsc --project ."
+    "link": "npm link --force && rm -rf package-lock.json",
+    "build": "rm -rf bin && tsc --project ."
   }
 }
