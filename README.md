@@ -1,3 +1,6 @@
+![license](https://img.shields.io/github/license/kmpizmad/express-route-generator)
+![dependencies](https://img.shields.io/depfu/kmpizmad/express-route-generator)
+
 # Table of Contents
 
 - [Express route generator](#express-route-generator)
