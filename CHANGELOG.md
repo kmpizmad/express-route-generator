@@ -1,6 +1,5 @@
-# Changelog v1.0.1
+# Changelog v1.0.2
 
-## Fixed
+## Added
 
-- bug where cli couldn't generate folders
-- bug where cli always expected a config file
+- new command `list` or `ls` for short

@@ -36,12 +36,22 @@ program
     name: 'name of the route to be removed',
   })
   .option('-p, --path <path>', 'path of the routes root folder')
-  .action((name, { path }, _: Command) => {
+  .option('-t, --test', 'removes test file only')
+  .action((name, options: any, _: Command) => {
     try {
-      remove({ name, path });
+      remove({ name, ...options });
     } catch (err) {
       errorCase(err, fileName);
     }
+  });
+
+program
+  .command('list')
+  .alias('ls')
+  .description('lists all routes')
+  .option('-p, --path <path>', 'path of the routes folder')
+  .action((_options: any, _: Command) => {
+    console.log('Work in progress..');
   });
 
 program.parse();

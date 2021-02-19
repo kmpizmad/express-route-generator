@@ -1,5 +1,16 @@
 #!/usr/bin/env node
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var commander_1 = require("commander");
 var commands_1 = require("./commands");
@@ -35,13 +46,21 @@ program
     name: 'name of the route to be removed',
 })
     .option('-p, --path <path>', 'path of the routes root folder')
-    .action(function (name, _a, _) {
-    var path = _a.path;
+    .option('-t, --test', 'removes test file only')
+    .action(function (name, options, _) {
     try {
-        commands_1.remove({ name: name, path: path });
+        commands_1.remove(__assign({ name: name }, options));
     }
     catch (err) {
         constants_1.errorCase(err, constants_1.fileName);
     }
+});
+program
+    .command('list')
+    .alias('ls')
+    .description('lists all routes')
+    .option('-p, --path <path>', 'path of the routes folder')
+    .action(function (_options, _) {
+    console.log('Work in progress..');
 });
 program.parse();

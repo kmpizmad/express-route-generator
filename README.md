@@ -37,6 +37,7 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 **remove:**<br />
 
 - **_-p | --path:_** defines the location of the server's `routes` folder
+- **_-t | --test:_** removes test file only
 
 **All of the above can be defined though an `erg.config.js` file with these modifications:**
 
