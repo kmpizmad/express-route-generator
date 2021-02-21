@@ -1,6 +1,8 @@
-![npm](https://img.shields.io/npm/v/@kmpizmad/express-route-generator)
-![license](https://img.shields.io/github/license/kmpizmad/express-route-generator)
-![dependencies](https://img.shields.io/depfu/kmpizmad/express-route-generator)
+[![npm][npm-version]][npm-url]
+[![npm][npm-downloads]][npm-url]
+![GitHub commit activity][github-activity]
+![GitHub last commit][github-last-commit]
+[![Depfu][depfu-updates]][depfu-url]
 
 # Table of Contents
 
@@ -185,3 +187,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+[npm-url]: https://www.npmjs.com/package/@kmpizmad/express-route-generator
+[npm-version]: https://img.shields.io/npm/v/@kmpizmad/express-route-generator?color=informational&logo=npm
+[npm-downloads]: https://img.shields.io/npm/dm/@kmpizmad/express-route-generator?color=critical&logo=npm
+[github-activity]: https://img.shields.io/github/commit-activity/m/kmpizmad/express-route-generator?color=informational&logo=GitHub
+[github-last-commit]: https://img.shields.io/github/last-commit/kmpizmad/express-route-generator?color=orange&logo=GitHub
+[depfu-url]: https://depfu.com/orgs/github/kmpizmad
+[depfu-updates]: https://img.shields.io/depfu/kmpizmad/express-route-generator?color=yellow&logo=Depfu
