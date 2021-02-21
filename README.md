@@ -189,7 +189,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 [npm-url]: https://www.npmjs.com/package/@kmpizmad/express-route-generator
-[npm-version]: https://img.shields.io/npm/v/@kmpizmad/express-route-generator?color=informational&logo=npm
+[npm-version]: https://img.shields.io/npm/v/@kmpizmad/express-route-generator?color=success&logo=npm
 [npm-downloads]: https://img.shields.io/npm/dm/@kmpizmad/express-route-generator?color=critical&logo=npm
 [github-activity]: https://img.shields.io/github/commit-activity/m/kmpizmad/express-route-generator?color=informational&logo=GitHub
 [github-last-commit]: https://img.shields.io/github/last-commit/kmpizmad/express-route-generator?color=orange&logo=GitHub
