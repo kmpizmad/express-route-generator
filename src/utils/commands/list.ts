@@ -7,7 +7,7 @@ import { setupCommand } from './setupCommand';
 export function list(options: List) {
   const config = setupCommand(
     !options.path,
-    new MissingParamsException('path')
+    new MissingParamsException('--path <path>')
   );
 
   const path = options.path || config?.rootDir;

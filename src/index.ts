@@ -42,7 +42,7 @@ program
   .alias('ls')
   .description('lists all routes')
   .option('-p, --path <path>', 'path of the routes folder')
-  .option('-r, --recursive', 'lists all routes recursively')
+  // .option('-r, --recursive', 'lists all routes recursively')
   .action((options: List, _: Command) => {
     list(options);
   });

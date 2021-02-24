@@ -7,7 +7,7 @@ var path_1 = require("path");
 var errors_1 = require("../../errors");
 var setupCommand_1 = require("./setupCommand");
 function remove(name, options) {
-    var config = setupCommand_1.setupCommand(!options.path, new errors_1.MissingParamsException('path'));
+    var config = setupCommand_1.setupCommand(!options.path, new errors_1.MissingParamsException('--path <path>'));
     var path = options.path || (config === null || config === void 0 ? void 0 : config.rootDir);
     var test = options.test || (config === null || config === void 0 ? void 0 : config.test);
     if (path) {
@@ -30,7 +30,7 @@ function remove(name, options) {
         }
     }
     else {
-        var ex = new errors_1.MissingParamsException('path');
+        var ex = new errors_1.MissingParamsException('--path <path>');
         ex.throw();
     }
 }

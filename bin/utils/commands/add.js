@@ -7,7 +7,7 @@ var setupCommand_1 = require("./setupCommand");
 function add(name, options) {
     var isMissing = !(pathWithSchemes(options.path, options.schemes) ||
         pathWithMethods(options.path, options.methods));
-    var config = setupCommand_1.setupCommand(isMissing, new errors_1.MissingParamsException('path, methods'));
+    var config = setupCommand_1.setupCommand(isMissing, new errors_1.MissingParamsException('--path <path>, --methods <methods...>'));
     var isTypescript = options.typescript || (config === null || config === void 0 ? void 0 : config.language) === 'typescript';
     var hasTestFile = (config === null || config === void 0 ? void 0 : config.test) !== undefined && options.test ? config === null || config === void 0 ? void 0 : config.test : options.test;
     var path = options.path || (config === null || config === void 0 ? void 0 : config.rootDir);
@@ -18,10 +18,10 @@ function add(name, options) {
     var stillMissing = !(pathWithSchemes(path, schemes) || pathWithMethods(path, methods));
     if (stillMissing) {
         if (!path) {
-            var exception_1 = new errors_1.MissingParamsException('path');
+            var exception_1 = new errors_1.MissingParamsException('--path <path>');
             exception_1.throw();
         }
-        var exception = new errors_1.MissingParamsException('methods');
+        var exception = new errors_1.MissingParamsException('--methods <methods...>');
         exception.throw();
     }
     if (path && schemes) {

@@ -8,7 +8,7 @@ import { setupCommand } from './setupCommand';
 export function remove(name: string, options: Remove) {
   const config = setupCommand(
     !options.path,
-    new MissingParamsException('path')
+    new MissingParamsException('--path <path>')
   );
 
   const path = options.path || config?.rootDir;
@@ -32,7 +32,7 @@ export function remove(name: string, options: Remove) {
       ex.throw();
     }
   } else {
-    const ex = new MissingParamsException('path');
+    const ex = new MissingParamsException('--path <path>');
     ex.throw();
   }
 }

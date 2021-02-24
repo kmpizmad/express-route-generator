@@ -11,7 +11,7 @@ export function add(name: string, options: Add) {
 
   const config = setupCommand(
     isMissing,
-    new MissingParamsException('path, methods')
+    new MissingParamsException('--path <path>, --methods <methods...>')
   );
 
   const isTypescript = options.typescript || config?.language === 'typescript';
@@ -32,11 +32,11 @@ export function add(name: string, options: Add) {
   // Throw error
   if (stillMissing) {
     if (!path) {
-      const exception = new MissingParamsException('path');
+      const exception = new MissingParamsException('--path <path>');
       exception.throw();
     }
 
-    const exception = new MissingParamsException('methods');
+    const exception = new MissingParamsException('--methods <methods...>');
     exception.throw();
   }
 

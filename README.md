@@ -1,7 +1,7 @@
 [![npm][npm-version]][npm-url]
 [![npm][npm-downloads]][npm-url]
-![GitHub commit activity][github-activity]
-![GitHub last commit][github-last-commit]
+[![GitHub commit activity][github-activity]][github-url]
+[![GitHub last commit][github-last-commit]][github-url]
 [![Depfu][depfu-updates]][depfu-url]
 
 # Table of Contents
@@ -23,13 +23,13 @@ CLI tool to create new endpoints / routes in an Express application.
 > _npm install -g @kmpizmad/express-route-generator_
 
 Keep in mind, that due to maintenance it's better to use it from the npm registry like this:<br/>
-`npx express-route-genertor` or `npx erg` for short.
+`npx @kmpizmad/express-route-genertor`
 
 ## Commands
 
 `add | a [options] <name>:` adds a new route under the provided path<br />
 `remove | rm [options] <name>:` removes a route by folder name<br />
-`list | ls:` lists all routes
+`list | ls [options]:` lists all routes
 
 ## Options
 
@@ -71,87 +71,127 @@ module.exports = {
 
 ## Custom Schemes
 
-ERG provides an opportunity to create your own schemes **WITHOUT EXTENSIONS!** The location must be defined in the configuration or in the options otherwise it'll use the built-in schemes.
+ERG provides an opportunity to create your own schemes. The location must be defined otherwise it'll use the built-in schemes.
+
+Filenames must contain the follows:
+
+`index`: This will be the router
+`.handlers`: This will contain the handlers for the router
+`.test`: This will be the test
+
+Prefixing and suffixing is doable, because the result will always start with the route name and end with the extension.
 
 ```
+// Example - erg add testRouter --path routes --schemes mySchemes
+
+mySchemes
+└ sample.index.ts
+└ sample.handlers.ts
+└ sample.test.ts
+```
+
+```
+// Result
+
+routes
+└ testRouter
+  └ index.js
+  └ testRouter.handlers.js
+  └ testRouter.test.js
+```
+
 // Example custom scheme
 
 root
 └ mySchemes
-  └ index
-  └ mySchema.handlers
-  └ mySchema.test
+└ index
+└ mySchema.handlers
+└ mySchema.test
+
 ```
 
 #### Example
 
 ```
+
 // Example structure
 
 root
 └ src
-  └ server
-    └ db
-    └ middlewares
-    └ routes
-    └ utils
+└ server
+└ db
+└ middlewares
+└ routes
+└ utils
+
 ```
 
 ```
+
 // Example config
 
 module.exports = {
-  rootDir: "src/server/routes",
-  methods: ["get", "post"]
+rootDir: "src/server/routes",
+methods: ["get", "post"]
 }
+
 ```
 
 ```
+
 // Example output of 'erg add generatedRoute'
 root
 └ src
-  └ server
-    └ db
-    └ middlewares
-    └ routes
-      └ generatedRoute
-        └ generatedRoute.handlers.js
-        └ generatedRoute.test.js
-        └ index.js
-    └ utils
+└ server
+└ db
+└ middlewares
+└ routes
+└ generatedRoute
+└ generatedRoute.handlers.js
+└ generatedRoute.test.js
+└ index.js
+└ utils
+
 ```
 
 ```
+
 // generatedRoute.handlers.js
 
 export const getController = async (req, res, next) => {};
 export const postController = async (req, res, next) => {};
+
 ```
 
 ```
+
 // generatedRoute.test.js
 
 import supertest from "supertest";
 
 describe('generatedRoute test', () => {
-  it('get', async done => {
-    const response = await supertest(server).get('/generatedRoute');
+it('get', async done => {
+const response = await supertest(server).get('/generatedRoute');
 
     // expectations
 
     done();
-  });
-  it('post', async done => {
-    const response = await supertest(server).get('/generatedRoute');
 
-    // expectations
-
-    done();
-  });
 });
+it('post', async done => {
+const response = await supertest(server).get('/generatedRoute');
+
+    // expectations
+
+    done();
+
+});
+});
+
 ```
 
 ```
+
 // index.js
 
 import { Router } from 'express';
@@ -162,6 +202,7 @@ const router = Router();
 router.route('/').get(getController).post(postController);
 
 export default router;
+
 ```
 
 ## License
@@ -191,7 +232,9 @@ SOFTWARE.
 [npm-url]: https://www.npmjs.com/package/@kmpizmad/express-route-generator
 [npm-version]: https://img.shields.io/npm/v/@kmpizmad/express-route-generator?color=success&logo=npm
 [npm-downloads]: https://img.shields.io/npm/dm/@kmpizmad/express-route-generator?color=critical&logo=npm
+[github-url]: https://github.com/kmpizmad/express-route-generator
 [github-activity]: https://img.shields.io/github/commit-activity/m/kmpizmad/express-route-generator?color=informational&logo=GitHub
 [github-last-commit]: https://img.shields.io/github/last-commit/kmpizmad/express-route-generator?color=orange&logo=GitHub
 [depfu-url]: https://depfu.com/orgs/github/kmpizmad
 [depfu-updates]: https://img.shields.io/depfu/kmpizmad/express-route-generator?color=yellow&logo=Depfu
+```
