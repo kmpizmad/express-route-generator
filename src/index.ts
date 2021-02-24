@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { add, remove } from './commands';
-import { fileName, errorCase } from './constants';
+import { Add, List, Remove } from './types';
+import { add, remove } from './utils/commands';
 
-const { version, description } = require('../package.json');
-const program = new Command();
+const { name, description, version } = require('../package.json');
+const program = new Command(name);
 
-program.version(version, '-v, --version');
 program.description(description);
+program.version(version, '-v, --version');
 
 program
   .command('add <name>')
@@ -21,12 +21,8 @@ program
   .option('-m, --methods <methods...>', 'accepted methods')
   .option('--typescript', 'generates the files with .ts extension', false)
   .option('--no-test', 'prevents generation of test file')
-  .action((name, { path, schemes, methods, typescript, test }, _: Command) => {
-    try {
-      add({ name, path, schemes, methods, typescript, test });
-    } catch (err) {
-      errorCase(err, fileName);
-    }
+  .action((name, options: Add, _: Command) => {
+    add(name, options);
   });
 
 program
@@ -37,12 +33,8 @@ program
   })
   .option('-p, --path <path>', 'path of the routes root folder')
   .option('-t, --test', 'removes test file only')
-  .action((name, options: any, _: Command) => {
-    try {
-      remove({ name, ...options });
-    } catch (err) {
-      errorCase(err, fileName);
-    }
+  .action((name, options: Remove, _: Command) => {
+    remove(name, options);
   });
 
 program
@@ -50,8 +42,6 @@ program
   .alias('ls')
   .description('lists all routes')
   .option('-p, --path <path>', 'path of the routes folder')
-  .action((_options: any, _: Command) => {
-    console.log('Work in progress..');
-  });
+  .action((_options: List, _: Command) => {});
 
 program.parse();
