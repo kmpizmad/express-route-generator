@@ -107,19 +107,19 @@ routes
 
 root
 └ src
-└ server
-└ db
-└ middlewares
-└ routes
-└ utils
+  └ server
+  └ db
+  └ middlewares
+  └ routes
+  └ utils
 ```
 
 ```
 // Example config
 
 module.exports = {
-rootDir: "src/server/routes",
-methods: ["get", "post"]
+  rootDir: "src/server/routes",
+  methods: ["get", "post"]
 }
 ```
 
@@ -127,15 +127,15 @@ methods: ["get", "post"]
 // Example output of 'erg add generatedRoute'
 root
 └ src
-└ server
-└ db
-└ middlewares
-└ routes
-└ generatedRoute
-└ generatedRoute.handlers.js
-└ generatedRoute.test.js
-└ index.js
-└ utils
+  └ server
+  └ db
+  └ middlewares
+  └ routes
+    └ generatedRoute
+      └ generatedRoute.handlers.js
+      └ generatedRoute.test.js
+      └ index.js
+  └ utils
 ```
 
 ```
@@ -151,22 +151,22 @@ export const postController = async (req, res, next) => {};
 import supertest from "supertest";
 
 describe('generatedRoute test', () => {
-it('get', async done => {
-const response = await supertest(server).get('/generatedRoute');
+  it('get', async done => {
+    const response = await supertest(server).get('/generatedRoute');
 
     // expectations
 
     done();
 
-});
-it('post', async done => {
-const response = await supertest(server).get('/generatedRoute');
+  });
+  it('post', async done => {
+    const response = await supertest(server).get('/generatedRoute');
 
     // expectations
 
     done();
 
-});
+  });
 });
 ```
 
