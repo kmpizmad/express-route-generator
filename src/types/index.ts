@@ -36,4 +36,5 @@ export type Remove = {
 
 export type List = {
   path: string;
+  recursive: boolean;
 };

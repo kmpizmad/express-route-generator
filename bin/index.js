@@ -37,5 +37,8 @@ program
     .alias('ls')
     .description('lists all routes')
     .option('-p, --path <path>', 'path of the routes folder')
-    .action(function (_options, _) { });
+    .option('-r, --recursive', 'lists all routes recursively')
+    .action(function (options, _) {
+    commands_1.list(options);
+});
 program.parse();

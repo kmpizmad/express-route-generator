@@ -2,7 +2,7 @@
 
 import { Command } from 'commander';
 import { Add, List, Remove } from './types';
-import { add, remove } from './utils/commands';
+import { add, list, remove } from './utils/commands';
 
 const { name, description, version } = require('../package.json');
 const program = new Command(name);
@@ -42,6 +42,9 @@ program
   .alias('ls')
   .description('lists all routes')
   .option('-p, --path <path>', 'path of the routes folder')
-  .action((_options: List, _: Command) => {});
+  .option('-r, --recursive', 'lists all routes recursively')
+  .action((options: List, _: Command) => {
+    list(options);
+  });
 
 program.parse();
