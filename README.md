@@ -11,7 +11,7 @@
   - [Commands](#commands)
   - [Options](#options)
   - [Custom Schemes](#custom-schemes)
-    - [Example](#example)
+  - [Example](#example)
   - [License](#license)
 
 # Express route generator
@@ -71,12 +71,12 @@ module.exports = {
 
 ## Custom Schemes
 
-ERG provides an opportunity to create your own schemes. The location must be defined otherwise it'll use the built-in schemes.
+**ERG** provides an opportunity to create your own schemes. The location must be defined otherwise it'll use the built-in schemes.
 
-Filenames must contain the follows:
+**Filenames must contain the follows:**
 
-`index`: This will be the router
-`.handlers`: This will contain the handlers for the router
+`index`: This will be the router<br />
+`.handlers`: This will contain the handlers for the router<br />
 `.test`: This will be the test
 
 Prefixing and suffixing is doable, because the result will always start with the route name and end with the extension.
@@ -100,18 +100,7 @@ routes
   └ testRouter.test.js
 ```
 
-```
-// Example custom scheme
-
-root
-└ mySchemes
-└ index
-└ mySchema.handlers
-└ mySchema.test
-
-```
-
-#### Example
+## Examples
 
 ```
 // Example structure
