@@ -100,6 +100,7 @@ routes
   └ testRouter.test.js
 ```
 
+```
 // Example custom scheme
 
 root
@@ -113,7 +114,6 @@ root
 #### Example
 
 ```
-
 // Example structure
 
 root
@@ -123,22 +123,18 @@ root
 └ middlewares
 └ routes
 └ utils
-
 ```
 
 ```
-
 // Example config
 
 module.exports = {
 rootDir: "src/server/routes",
 methods: ["get", "post"]
 }
-
 ```
 
 ```
-
 // Example output of 'erg add generatedRoute'
 root
 └ src
@@ -151,20 +147,16 @@ root
 └ generatedRoute.test.js
 └ index.js
 └ utils
-
 ```
 
 ```
-
 // generatedRoute.handlers.js
 
 export const getController = async (req, res, next) => {};
 export const postController = async (req, res, next) => {};
-
 ```
 
 ```
-
 // generatedRoute.test.js
 
 import supertest from "supertest";
@@ -187,11 +179,9 @@ const response = await supertest(server).get('/generatedRoute');
 
 });
 });
-
 ```
 
 ```
-
 // index.js
 
 import { Router } from 'express';
@@ -202,7 +192,6 @@ const router = Router();
 router.route('/').get(getController).post(postController);
 
 export default router;
-
 ```
 
 ## License
@@ -237,4 +226,3 @@ SOFTWARE.
 [github-last-commit]: https://img.shields.io/github/last-commit/kmpizmad/express-route-generator?color=orange&logo=GitHub
 [depfu-url]: https://depfu.com/orgs/github/kmpizmad
 [depfu-updates]: https://img.shields.io/depfu/kmpizmad/express-route-generator?color=yellow&logo=Depfu
-```
