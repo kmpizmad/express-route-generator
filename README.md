@@ -50,7 +50,7 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 
 - **_-p | --path:_** defines the location of the server's `routes` folder
 
-**All of the above can be defined though an `erg.config.js` file with these modifications:**
+**All of the above can be defined though an `erg.config.js` or `erg.config.json` file with these modifications:**
 
 **_--path_** => `rootDir`<br />
 **_--schemes_** => `schemesDir`<br />

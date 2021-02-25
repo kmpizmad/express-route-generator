@@ -1,9 +1,5 @@
-# Changelog v1.1.2
-
-## Added
-
-- vendors folder
+# Changelog v1.1.4
 
 ## Changed
 
-- `console.log()` to `Chalk.writeLine()` => more readable and testable
+- readme
