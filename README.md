@@ -3,7 +3,7 @@
 [![Coverage Status][coveralls-badge]][coveralls-url]
 [![Build Status][travis-badge]][travis-url]
 [![GitHub last commit][github-last-commit]][github-url]
-[![Depfu][depfu-updates]][depfu-url]
+[![Depfu][depfu-badge]][depfu-url]
 
 # Table of Contents
 
