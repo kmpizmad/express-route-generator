@@ -1,6 +1,7 @@
 [![npm][npm-version]][npm-url]
 [![npm][npm-downloads]][npm-url]
 [![Coverage Status][coveralls-badge]][coveralls-url]
+[![Travis][travis-badge]][travis-url]
 [![GitHub commit activity][github-activity]][github-url]
 [![GitHub last commit][github-last-commit]][github-url]
 [![Depfu][depfu-updates]][depfu-url]
@@ -213,6 +214,8 @@ SOFTWARE.
 [npm-downloads]: https://img.shields.io/npm/dm/@kmpizmad/express-route-generator?color=critical&logo=npm
 [coveralls-badge]: https://coveralls.io/repos/github/kmpizmad/express-route-generator/badge.svg?branch=main
 [coveralls-url]: https://coveralls.io/github/kmpizmad/express-route-generator?branch=main
+[travis-badge]: https://travis-ci.com/kmpizmad/express-route-generator.svg?branch=main
+[travis-url]: https://travis-ci.com/github/kmpizmad/express-route-generator
 [github-url]: https://github.com/kmpizmad/express-route-generator
 [github-activity]: https://img.shields.io/github/commit-activity/m/kmpizmad/express-route-generator?color=informational&logo=GitHub
 [github-last-commit]: https://img.shields.io/github/last-commit/kmpizmad/express-route-generator?color=orange&logo=GitHub
