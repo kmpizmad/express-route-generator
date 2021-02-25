@@ -55,7 +55,7 @@
     "git": "git add . && git commit -m",
     "link": "npm link --force && rm -rf package-lock.json",
     "test": "jest --detectOpenHandles",
-    "test:coveralls": "jest --coverage && coveralls < coverage/lcov.info",
+    "test:coveralls": "yarn test --coverage && coveralls < coverage/lcov.info",
     "build": "rm -rf bin && tsc --project ."
   }
 }

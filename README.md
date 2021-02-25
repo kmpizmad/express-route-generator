@@ -1,6 +1,6 @@
 [![npm][npm-version]][npm-url]
 [![npm][npm-downloads]][npm-url]
-[![codecov][codecov-badge]][codecov-url]
+[![Coverage Status][coveralls-badge]][coveralls-url]
 [![GitHub commit activity][github-activity]][github-url]
 [![GitHub last commit][github-last-commit]][github-url]
 [![Depfu][depfu-updates]][depfu-url]
@@ -211,8 +211,8 @@ SOFTWARE.
 [npm-url]: https://www.npmjs.com/package/@kmpizmad/express-route-generator
 [npm-version]: https://img.shields.io/npm/v/@kmpizmad/express-route-generator?color=success&logo=npm
 [npm-downloads]: https://img.shields.io/npm/dm/@kmpizmad/express-route-generator?color=critical&logo=npm
-[codecov-badge]: https://codecov.io/gh/kmpizmad/express-route-generator/branch/main/graph/badge.svg?token=EM3YAKL5T5
-[codecov-url]: https://codecov.io/gh/kmpizmad/express-route-generator
+[coveralls-badge]: https://coveralls.io/repos/github/kmpizmad/express-route-generator/badge.svg?branch=main
+[coveralls-url]: https://coveralls.io/github/kmpizmad/express-route-generator?branch=main
 [github-url]: https://github.com/kmpizmad/express-route-generator
 [github-activity]: https://img.shields.io/github/commit-activity/m/kmpizmad/express-route-generator?color=informational&logo=GitHub
 [github-last-commit]: https://img.shields.io/github/last-commit/kmpizmad/express-route-generator?color=orange&logo=GitHub
