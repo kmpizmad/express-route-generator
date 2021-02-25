@@ -7,6 +7,8 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -17,8 +19,8 @@ exports.MissingParamsException = void 0;
 var Exception_1 = require("./Exception");
 var MissingParamsException = (function (_super) {
     __extends(MissingParamsException, _super);
-    function MissingParamsException(message, exception) {
-        return _super.call(this, message, exception) || this;
+    function MissingParamsException(message) {
+        return _super.call(this, message) || this;
     }
     return MissingParamsException;
 }(Exception_1.Exception));

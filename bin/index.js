@@ -19,7 +19,12 @@ program
     .option('--typescript', 'generates the files with .ts extension', false)
     .option('--no-test', 'prevents generation of test file')
     .action(function (name, options, _) {
-    commands_1.add(name, options);
+    try {
+        commands_1.add(name, options);
+    }
+    catch (err) {
+        console.log(err.message);
+    }
 });
 program
     .command('remove <name>')
@@ -30,7 +35,12 @@ program
     .option('-p, --path <path>', 'path of the routes root folder')
     .option('-t, --test', 'removes test file only')
     .action(function (name, options, _) {
-    commands_1.remove(name, options);
+    try {
+        commands_1.remove(name, options);
+    }
+    catch (err) {
+        console.log(err.message);
+    }
 });
 program
     .command('list')
@@ -38,6 +48,11 @@ program
     .description('lists all routes')
     .option('-p, --path <path>', 'path of the routes folder')
     .action(function (options, _) {
-    commands_1.list(options);
+    try {
+        commands_1.list(options);
+    }
+    catch (err) {
+        console.log(err.message);
+    }
 });
 program.parse();

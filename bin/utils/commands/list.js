@@ -4,6 +4,7 @@ exports.list = void 0;
 var chalk_1 = require("chalk");
 var fs_1 = require("fs");
 var errors_1 = require("../../errors");
+var chalk_2 = require("../../vendors/chalk");
 var setupCommand_1 = require("./setupCommand");
 function list(options) {
     var config = setupCommand_1.setupCommand(!options.path, new errors_1.MissingParamsException('--path <path>'));
@@ -11,10 +12,9 @@ function list(options) {
     if (path) {
         fs_1.readdir(path, function (err, files) {
             if (err) {
-                var ex = new errors_1.Exception(err.message);
-                ex.throw();
+                throw new errors_1.Exception(err.message);
             }
-            console.log(chalk_1.yellow(files.join('  ')));
+            chalk_2.Chalk.writeLine(chalk_1.yellow, files.join('  '));
         });
     }
 }

@@ -1,5 +1,5 @@
-# Changelog v1.1.4
+# Changelog v1.2.0
 
-## Changed
+## Added
 
-- readme
+- tests

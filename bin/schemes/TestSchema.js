@@ -7,6 +7,8 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -25,9 +27,9 @@ var TestSchema = (function (_super) {
         _this.__condition = condition;
         return _this;
     }
-    TestSchema.prototype.build = function (path, extension) {
+    TestSchema.prototype.build = function (path, extension, testing) {
         if (this.__condition) {
-            _super.prototype.build.call(this, path, extension);
+            _super.prototype.build.call(this, path, extension, testing);
         }
     };
     return TestSchema;

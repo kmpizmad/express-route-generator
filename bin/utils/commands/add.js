@@ -18,11 +18,9 @@ function add(name, options) {
     var stillMissing = !(pathWithSchemes(path, schemes) || pathWithMethods(path, methods));
     if (stillMissing) {
         if (!path) {
-            var exception_1 = new errors_1.MissingParamsException('--path <path>');
-            exception_1.throw();
+            throw new errors_1.MissingParamsException('--path <path>');
         }
-        var exception = new errors_1.MissingParamsException('--methods <methods...>');
-        exception.throw();
+        throw new errors_1.MissingParamsException('--methods <methods...>');
     }
     if (path && schemes) {
         schemes_1.SchemaBuilder.userBuild({

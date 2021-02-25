@@ -29,12 +29,10 @@ export function remove(name: string, options: Remove) {
         rm(folder, { recursive: true }, removeHandler(folder));
       }
     } else {
-      const ex = new FileNotFoundException(`${folder} is not a directory!`);
-      ex.throw();
+      throw new FileNotFoundException(`${folder} is not a directory!`);
     }
   } else {
-    const ex = new MissingParamsException('--path <path>');
-    ex.throw();
+    throw new MissingParamsException('--path <path>');
   }
 }
 

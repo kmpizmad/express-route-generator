@@ -17,7 +17,7 @@ var ConfigLoader = (function () {
         }
         var ex = exception ||
             new errors_1.FileNotFoundException("Couldn't find any of these files: " + files.toString());
-        return ex.throw();
+        throw ex;
     };
     return ConfigLoader;
 }());

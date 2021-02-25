@@ -26,13 +26,11 @@ function remove(name, options) {
             }
         }
         else {
-            var ex = new errors_1.FileNotFoundException(folder + " is not a directory!");
-            ex.throw();
+            throw new errors_1.FileNotFoundException(folder + " is not a directory!");
         }
     }
     else {
-        var ex = new errors_1.MissingParamsException('--path <path>');
-        ex.throw();
+        throw new errors_1.MissingParamsException('--path <path>');
     }
 }
 exports.remove = remove;

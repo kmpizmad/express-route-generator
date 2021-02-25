@@ -32,12 +32,10 @@ export function add(name: string, options: Add) {
   // Throw error
   if (stillMissing) {
     if (!path) {
-      const exception = new MissingParamsException('--path <path>');
-      exception.throw();
+      throw new MissingParamsException('--path <path>');
     }
 
-    const exception = new MissingParamsException('--methods <methods...>');
-    exception.throw();
+    throw new MissingParamsException('--methods <methods...>');
   }
 
   // User defined schemes

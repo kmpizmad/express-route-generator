@@ -3,7 +3,7 @@
   "license": "MIT",
   "name": "@kmpizmad/express-route-generator",
   "description": "Generates a basic route for an Express application.",
-  "version": "v1.1.4",
+  "version": "v1.2.0",
   "deprecated": false,
   "type": "commonjs",
   "files": [
@@ -40,7 +40,10 @@
   "devDependencies": {
     "@types/chalk": "^2.2.0",
     "@types/commander": "^2.12.2",
+    "@types/jest": "^26.0.20",
     "@types/node": "^14.14.31",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.2",
     "typescript": "^4.2.2"
   },
   "dependencies": {
@@ -50,6 +53,7 @@
   "scripts": {
     "git": "git add . && git commit -m",
     "link": "npm link --force && rm -rf package-lock.json",
+    "test": "jest --detectOpenHandles",
     "build": "rm -rf bin && tsc --project ."
   }
 }

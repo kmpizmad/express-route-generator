@@ -7,6 +7,8 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -17,8 +19,8 @@ exports.InvalidArgumentException = void 0;
 var Exception_1 = require("./Exception");
 var InvalidArgumentException = (function (_super) {
     __extends(InvalidArgumentException, _super);
-    function InvalidArgumentException(message, exception) {
-        return _super.call(this, message, exception) || this;
+    function InvalidArgumentException(message) {
+        return _super.call(this, message) || this;
     }
     return InvalidArgumentException;
 }(Exception_1.Exception));

@@ -1,4 +1,3 @@
-import { readdirSync } from 'fs';
 import { join } from 'path';
 import { HandlerSchema, RouterSchema, Schema, TestSchema } from '.';
 import { InvalidArgumentException } from '../errors';
@@ -37,23 +36,17 @@ export class SchemaBuilder {
         return this.__buildTests();
 
       default:
-        const exception = new InvalidArgumentException(
+        throw new InvalidArgumentException(
           `Couldn't recognize build pattern '${name}'`
         );
-        return exception.throw();
     }
   }
 
-  public static userBuild(options: UserOptions) {
+  public static userBuild(options: UserOptions, testing?: boolean) {
     const { path, filename, extension, schemesDir } = options;
-    const schemes = readdirSync(schemesDir);
-    const routerSchema = FileManager.readSchema(schemesDir, schemes, 'index');
-    const handlerSchema = FileManager.readSchema(
-      schemesDir,
-      schemes,
-      '.handlers'
-    );
-    const testSchema = FileManager.readSchema(schemesDir, schemes, '.test');
+    const routerSchema = FileManager.readSchema(schemesDir, 'index');
+    const handlerSchema = FileManager.readSchema(schemesDir, '.handlers');
+    const testSchema = FileManager.readSchema(schemesDir, '.test');
 
     const router = new Schema('index', routerSchema);
     const handlers = new Schema(filename + '.handlers', handlerSchema);
@@ -61,11 +54,11 @@ export class SchemaBuilder {
 
     [router, handlers, test].forEach(schema => {
       const folder = join(path, filename);
-      schema.build(folder, extension);
+      schema.build(folder, extension, testing);
     });
   }
 
-  public static defaultBuild(options: DefaultOptions) {
+  public static defaultBuild(options: DefaultOptions, testing?: boolean) {
     const { path, filename, extension, methods, test } = options;
     const routerSchema = new RouterSchema(filename, methods);
     const handlerSchema = new HandlerSchema(filename, methods);
@@ -75,7 +68,7 @@ export class SchemaBuilder {
 
     schemes.forEach(schema => {
       const folder = join(path, filename);
-      schema.build(folder, extension);
+      schema.build(folder, extension, testing);
     });
   }
 
@@ -84,10 +77,10 @@ export class SchemaBuilder {
 import { ${this.__controllers(', ', true)} } from "./${
       this.__filename
     }.handlers";
-      
+
 const router = Router();
-      
-router.route('/').${this.__controllers('.')}
+
+router.route('/').${this.__controllers('.')};
 
 export default router;`;
   }
@@ -116,7 +109,7 @@ export default router;`;
       
 describe('${this.__filename} test', () => {
   ${this.__testRoutes()}
-})`;
+});`;
   }
 
   private __testRoutes(): string {
@@ -128,7 +121,7 @@ describe('${this.__filename} test', () => {
     // expectations
 
     done();
-  })`
+  });`
       )
       .join('\n  ');
   }

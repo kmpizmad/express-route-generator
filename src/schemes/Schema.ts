@@ -1,7 +1,6 @@
 import { green } from 'chalk';
 import { existsSync, mkdirSync, writeFile } from 'fs';
 import { join } from 'path';
-import { FileNotFoundException } from '../errors';
 import { Chalk } from '../vendors/chalk';
 
 export class Schema {
@@ -13,19 +12,14 @@ export class Schema {
     this._schema = schema;
   }
 
-  public build(path: string, extension: string): void {
-    try {
-      if (!existsSync(path)) {
-        mkdirSync(path, { recursive: true });
-      }
-
-      const file = join(path, this._name) + extension;
-      writeFile(file, this._schema, () =>
-        Chalk.writeLine(green, `created ${file}`)
-      );
-    } catch (error) {
-      const exception = new FileNotFoundException(error.message);
-      exception.throw();
+  public build(path: string, extension: string, testing?: boolean): void {
+    if (!existsSync(path)) {
+      mkdirSync(path, { recursive: true });
     }
+
+    const file = join(path, this._name) + extension;
+    writeFile(file, this._schema, () => {
+      if (!testing) Chalk.writeLine(green, `created ${file}`);
+    });
   }
 }

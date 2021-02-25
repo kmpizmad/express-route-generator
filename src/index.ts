@@ -22,7 +22,11 @@ program
   .option('--typescript', 'generates the files with .ts extension', false)
   .option('--no-test', 'prevents generation of test file')
   .action((name, options: Add, _: Command) => {
-    add(name, options);
+    try {
+      add(name, options);
+    } catch (err) {
+      console.log(err.message);
+    }
   });
 
 program
@@ -34,7 +38,11 @@ program
   .option('-p, --path <path>', 'path of the routes root folder')
   .option('-t, --test', 'removes test file only')
   .action((name, options: Remove, _: Command) => {
-    remove(name, options);
+    try {
+      remove(name, options);
+    } catch (err) {
+      console.log(err.message);
+    }
   });
 
 program
@@ -44,7 +52,11 @@ program
   .option('-p, --path <path>', 'path of the routes folder')
   // .option('-r, --recursive', 'lists all routes recursively')
   .action((options: List, _: Command) => {
-    list(options);
+    try {
+      list(options);
+    } catch (err) {
+      console.log(err.message);
+    }
   });
 
 program.parse();

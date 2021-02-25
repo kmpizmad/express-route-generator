@@ -2,6 +2,7 @@ import { yellow } from 'chalk';
 import { readdir } from 'fs';
 import { Exception, MissingParamsException } from '../../errors';
 import { List } from '../../types';
+import { Chalk } from '../../vendors/chalk';
 import { setupCommand } from './setupCommand';
 
 export function list(options: List) {
@@ -16,11 +17,10 @@ export function list(options: List) {
   if (path) {
     readdir(path, (err, files) => {
       if (err) {
-        const ex = new Exception(err.message);
-        ex.throw();
+        throw new Exception(err.message);
       }
 
-      console.log(yellow(files.join('  ')));
+      Chalk.writeLine(yellow, files.join('  '));
     });
   }
 }

@@ -10,14 +10,19 @@ var FileManager = (function () {
     FileManager.setExtensions = function (filename, extensions) {
         return extensions.map(function (extension) { return filename + extension; });
     };
-    FileManager.readSchema = function (schemesDir, schemes, filename) {
-        var path = path_1.join(schemesDir, schemes.filter(function (file) { return file.includes(filename); }).join(''));
-        if (fs_1.lstatSync(path).isFile()) {
-            return fs_1.readFileSync(path, { encoding: 'utf-8' });
+    FileManager.readSchema = function (schemesDir, filename) {
+        if (fs_1.existsSync(schemesDir) && fs_1.lstatSync(schemesDir).isDirectory()) {
+            var schemes = fs_1.readdirSync(schemesDir);
+            var path = path_1.join(schemesDir, schemes.filter(function (file) { return file.includes(filename); }).join(''));
+            if (fs_1.existsSync(path) && fs_1.lstatSync(path).isFile()) {
+                return fs_1.readFileSync(path, { encoding: 'utf-8' });
+            }
+            else {
+                throw new errors_1.FileNotFoundException("'" + filename + "' schema is missing in '" + schemesDir + "'.");
+            }
         }
         else {
-            var ex = new errors_1.FileNotFoundException("'" + filename + "' schema is missing in '" + schemesDir + "'");
-            return ex.throw();
+            throw new errors_1.FileNotFoundException("'" + schemesDir + "' is missing.");
         }
     };
     return FileManager;

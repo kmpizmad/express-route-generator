@@ -25,6 +25,6 @@ export class ConfigLoader {
       new FileNotFoundException(
         `Couldn't find any of these files: ${files.toString()}`
       );
-    return ex.throw();
+    throw ex;
   }
 }
