@@ -2,9 +2,7 @@
 [![npm][npm-downloads]][npm-url]
 [![Coverage Status][coveralls-badge]][coveralls-url]
 [![Travis][travis-badge]][travis-url]
-
 <!-- [![GitHub commit activity][github-activity]][github-url] -->
-
 [![GitHub last commit][github-last-commit]][github-url]
 [![Depfu][depfu-updates]][depfu-url]
 
@@ -219,9 +217,7 @@ SOFTWARE.
 [travis-badge]: https://travis-ci.com/kmpizmad/express-route-generator.svg?branch=main
 [travis-url]: https://travis-ci.com/github/kmpizmad/express-route-generator
 [github-url]: https://github.com/kmpizmad/express-route-generator
-
 <!-- [github-activity]: https://img.shields.io/github/commit-activity/m/kmpizmad/express-route-generator?color=informational&logo=GitHub -->
-
 [github-last-commit]: https://img.shields.io/github/last-commit/kmpizmad/express-route-generator?color=orange&logo=GitHub
 [depfu-url]: https://depfu.com/orgs/github/kmpizmad
 [depfu-updates]: https://img.shields.io/depfu/kmpizmad/express-route-generator?color=yellow&logo=Depfu
