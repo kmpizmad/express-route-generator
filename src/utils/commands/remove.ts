@@ -3,6 +3,7 @@ import { existsSync, lstatSync, readdirSync, rm } from 'fs';
 import { join } from 'path';
 import { FileNotFoundException, MissingParamsException } from '../../errors';
 import { Remove } from '../../types';
+import { Chalk } from '../../vendors/chalk';
 import { setupCommand } from './setupCommand';
 
 export function remove(name: string, options: Remove) {
@@ -38,5 +39,5 @@ export function remove(name: string, options: Remove) {
 }
 
 function removeHandler(fileOrFolder: string) {
-  return () => console.log(red(`removed ${fileOrFolder}`));
+  return () => Chalk.writeLine(red, `removed ${fileOrFolder}`);
 }

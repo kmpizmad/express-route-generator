@@ -16,7 +16,7 @@ var FileManager = (function () {
             return fs_1.readFileSync(path, { encoding: 'utf-8' });
         }
         else {
-            var ex = new errors_1.FileNotFoundException(filename + " is missing in " + schemesDir);
+            var ex = new errors_1.FileNotFoundException("'" + filename + "' schema is missing in '" + schemesDir + "'");
             return ex.throw();
         }
     };

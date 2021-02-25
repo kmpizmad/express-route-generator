@@ -5,6 +5,7 @@ var chalk_1 = require("chalk");
 var fs_1 = require("fs");
 var path_1 = require("path");
 var errors_1 = require("../../errors");
+var chalk_2 = require("../../vendors/chalk");
 var setupCommand_1 = require("./setupCommand");
 function remove(name, options) {
     var config = setupCommand_1.setupCommand(!options.path, new errors_1.MissingParamsException('--path <path>'));
@@ -36,5 +37,5 @@ function remove(name, options) {
 }
 exports.remove = remove;
 function removeHandler(fileOrFolder) {
-    return function () { return console.log(chalk_1.red("removed " + fileOrFolder)); };
+    return function () { return chalk_2.Chalk.writeLine(chalk_1.red, "removed " + fileOrFolder); };
 }
