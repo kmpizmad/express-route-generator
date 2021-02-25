@@ -4,8 +4,6 @@ import { Exception, FileNotFoundException } from '../errors';
 import { Config } from '../types';
 
 export class ConfigLoader {
-  private constructor() {}
-
   /**
    * Load the first file that exists or throws an error
    * @param files files to search from first to last

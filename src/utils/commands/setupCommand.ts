@@ -7,15 +7,13 @@ export function setupCommand(
   condition: boolean,
   exception?: Exception
 ): Config | undefined {
-  let config: Config | undefined;
-
   // Load config file
   if (condition) {
-    config = ConfigLoader.load(
+    return ConfigLoader.load(
       FileManager.setExtensions('erg.config', ['.js', '.json']),
       exception
     );
+  } else {
+    return undefined;
   }
-
-  return config;
 }

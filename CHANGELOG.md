@@ -1,5 +1,5 @@
-# Changelog v1.2.0
+# Changelog v1.2.1
 
-## Added
+## Changed
 
-- tests
+- code due to testability

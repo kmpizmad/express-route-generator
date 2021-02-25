@@ -3,8 +3,6 @@ import { join } from 'path';
 import { FileNotFoundException } from '../errors';
 
 export class FileManager {
-  private constructor() {}
-
   public static setExtensions(
     filename: string,
     extensions: string[]
