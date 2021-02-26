@@ -56,6 +56,7 @@
     "link": "npm link --force && rm -rf package-lock.json",
     "test": "jest --detectOpenHandles",
     "test:coveralls": "yarn test --coverage && coveralls < __coverage__/lcov.info",
-    "build": "rm -rf bin && tsc --project ."
+    "build": "rm -rf bin && tsc --project .",
+    "deploy": "git push && git push --tags && npm publish"
   }
 }
