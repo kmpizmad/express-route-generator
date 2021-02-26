@@ -1,5 +1,6 @@
-# Changelog v1.2.1
+# Changelog v1.2.3
 
 ## Changed
 
-- code due to testability
+- test suites and test cases (more organized)
+- piece of code related to test cases changes
