@@ -211,7 +211,7 @@ SOFTWARE.
 [npm-url]: https://www.npmjs.com/package/@kmpizmad/express-route-generator
 [npm-version]: https://img.shields.io/npm/v/@kmpizmad/express-route-generator?color=success&logo=npm
 [npm-downloads]: https://img.shields.io/npm/dm/@kmpizmad/express-route-generator?color=critical&logo=npm
-[coveralls-badge]: https://coveralls.io/repos/github/kmpizmad/express-route-generator/badge.svg
+[coveralls-badge]: https://coveralls.io/repos/github/kmpizmad/express-route-generator/badge.svg?branch=main
 [coveralls-url]: https://coveralls.io/github/kmpizmad/express-route-generator?branch=main
 [travis-badge]: https://travis-ci.com/kmpizmad/express-route-generator.svg?branch=main
 [travis-url]: https://travis-ci.com/github/kmpizmad/express-route-generator
