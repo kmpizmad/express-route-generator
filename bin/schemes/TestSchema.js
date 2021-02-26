@@ -27,9 +27,12 @@ var TestSchema = (function (_super) {
         _this.__condition = condition;
         return _this;
     }
-    TestSchema.prototype.build = function (path, extension, testing) {
+    TestSchema.prototype.build = function (path, extension) {
         if (this.__condition) {
-            _super.prototype.build.call(this, path, extension, testing);
+            _super.prototype.build.call(this, path, extension);
+        }
+        else {
+            return;
         }
     };
     return TestSchema;

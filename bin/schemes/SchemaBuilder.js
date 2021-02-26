@@ -33,7 +33,7 @@ var SchemaBuilder = (function () {
                 throw new errors_1.InvalidArgumentException("Couldn't recognize build pattern '" + name + "'");
         }
     };
-    SchemaBuilder.userBuild = function (options, testing) {
+    SchemaBuilder.userBuild = function (options) {
         var path = options.path, filename = options.filename, extension = options.extension, schemesDir = options.schemesDir;
         var routerSchema = FileManager_1.FileManager.readSchema(schemesDir, 'index');
         var handlerSchema = FileManager_1.FileManager.readSchema(schemesDir, '.handlers');
@@ -43,10 +43,10 @@ var SchemaBuilder = (function () {
         var test = new _1.Schema(filename + '.test', testSchema);
         [router, handlers, test].forEach(function (schema) {
             var folder = path_1.join(path, filename);
-            schema.build(folder, extension, testing);
+            schema.build(folder, extension);
         });
     };
-    SchemaBuilder.defaultBuild = function (options, testing) {
+    SchemaBuilder.defaultBuild = function (options) {
         var path = options.path, filename = options.filename, extension = options.extension, methods = options.methods, test = options.test;
         var routerSchema = new _1.RouterSchema(filename, methods);
         var handlerSchema = new _1.HandlerSchema(filename, methods);
@@ -54,7 +54,7 @@ var SchemaBuilder = (function () {
         var schemes = [routerSchema, handlerSchema, testSchema];
         schemes.forEach(function (schema) {
             var folder = path_1.join(path, filename);
-            schema.build(folder, extension, testing);
+            schema.build(folder, extension);
         });
     };
     SchemaBuilder.prototype.__buildRouter = function () {
@@ -77,7 +77,7 @@ var SchemaBuilder = (function () {
             .join('\n');
     };
     SchemaBuilder.prototype.__buildTests = function () {
-        return "import supertest from \"supertest\";\n      \ndescribe('" + this.__filename + " test', () => {\n  " + this.__testRoutes() + "\n});";
+        return "import supertest from \"supertest\";\n\ndescribe('" + this.__filename + " test', () => {\n  " + this.__testRoutes() + "\n});";
     };
     SchemaBuilder.prototype.__testRoutes = function () {
         var _this = this;

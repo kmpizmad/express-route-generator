@@ -8,16 +8,15 @@ var ConfigLoader = (function () {
     function ConfigLoader() {
     }
     ConfigLoader.load = function (files, exception) {
-        for (var i = 0; i < files.length; i++) {
-            var file = path_1.join(process.cwd(), files[i]);
-            if (fs_1.existsSync(file) && fs_1.lstatSync(file).isFile()) {
-                var config = require(file);
-                return config;
-            }
+        var file = files.filter(function (file) { return fs_1.existsSync(file) && fs_1.lstatSync(file).isFile(); })[0];
+        if (!!file) {
+            return require(path_1.join(process.cwd(), file));
         }
-        var ex = exception ||
-            new errors_1.FileNotFoundException("Couldn't find any of these files: " + files.toString());
-        throw ex;
+        else {
+            var ex = exception ||
+                new errors_1.FileNotFoundException("Couldn't find any of these files: " + files.toString());
+            throw ex;
+        }
     };
     return ConfigLoader;
 }());

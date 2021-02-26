@@ -4,6 +4,11 @@ exports.Chalk = void 0;
 var Chalk = (function () {
     function Chalk() {
     }
+    Chalk.log = function (color, message) {
+        return function () {
+            Chalk.writeLine(color, message);
+        };
+    };
     Chalk.writeLine = function (color, message) {
         console.log(color(message));
     };

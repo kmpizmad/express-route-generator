@@ -10,15 +10,12 @@ var Schema = (function () {
         this._name = name;
         this._schema = schema;
     }
-    Schema.prototype.build = function (path, extension, testing) {
+    Schema.prototype.build = function (path, extension) {
         if (!fs_1.existsSync(path)) {
             fs_1.mkdirSync(path, { recursive: true });
         }
         var file = path_1.join(path, this._name) + extension;
-        fs_1.writeFile(file, this._schema, function () {
-            if (!testing)
-                chalk_2.Chalk.writeLine(chalk_1.green, "created " + file);
-        });
+        fs_1.writeFile(file, this._schema, chalk_2.Chalk.log(chalk_1.green, "created " + file));
     };
     return Schema;
 }());
