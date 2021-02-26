@@ -1,6 +1,7 @@
-# Changelog v1.2.3
+# Changelog v1.3.0
 
-## Changed
+## Added
 
-- test suites and test cases (more organized)
-- piece of code related to test cases changes
+- new options for `list` command
+- test suite
+- new exception `DirectoryNotFoundException`

@@ -13,8 +13,8 @@ program
     .description('adds a new route', {
     name: 'name of the new route',
 })
-    .option('-p, --path <path>', 'path of the routes root folder')
-    .option('-s, --schemes <path>', 'path of the schemes root folder')
+    .option('-p, --path <path>', "path of the 'routes' folder")
+    .option('-s, --schemes <path>', "path of the 'schemes' folder")
     .option('-m, --methods <methods...>', 'accepted methods')
     .option('--typescript', 'generates the files with .ts extension', false)
     .option('--no-test', 'prevents generation of test file')
@@ -32,7 +32,7 @@ program
     .description('removes a route by name', {
     name: 'name of the route to be removed',
 })
-    .option('-p, --path <path>', 'path of the routes root folder')
+    .option('-p, --path <path>', "path of the 'routes' folder")
     .option('-t, --test', 'removes test file only')
     .action(function (name, options, _) {
     try {
@@ -46,7 +46,8 @@ program
     .command('list')
     .alias('ls')
     .description('lists all routes')
-    .option('-p, --path <path>', 'path of the routes folder')
+    .option('-p, --path <path>', "path of the 'routes' folder")
+    .option('-r, --recursive', 'recursively prints folders and files')
     .action(function (options, _) {
     try {
         commands_1.list(options);

@@ -1,10 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MissingParamsException = exports.FileNotFoundException = exports.InvalidArgumentException = exports.Exception = void 0;
+exports.MissingParamsException = exports.FileNotFoundException = exports.DirectoryNotFoundException = exports.InvalidArgumentException = exports.Exception = void 0;
 var Exception_1 = require("./Exception");
 Object.defineProperty(exports, "Exception", { enumerable: true, get: function () { return Exception_1.Exception; } });
 var InvalidArgumentException_1 = require("./InvalidArgumentException");
 Object.defineProperty(exports, "InvalidArgumentException", { enumerable: true, get: function () { return InvalidArgumentException_1.InvalidArgumentException; } });
+var DirectoryNotFoundException_1 = require("./DirectoryNotFoundException");
+Object.defineProperty(exports, "DirectoryNotFoundException", { enumerable: true, get: function () { return DirectoryNotFoundException_1.DirectoryNotFoundException; } });
 var FileNotFoundException_1 = require("./FileNotFoundException");
 Object.defineProperty(exports, "FileNotFoundException", { enumerable: true, get: function () { return FileNotFoundException_1.FileNotFoundException; } });
 var MissingParamsException_1 = require("./MissingParamsException");

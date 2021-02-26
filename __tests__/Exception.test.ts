@@ -1,4 +1,5 @@
 import {
+  DirectoryNotFoundException,
   Exception,
   FileNotFoundException,
   InvalidArgumentException,
@@ -26,6 +27,12 @@ describe('Exception class', () => {
 
   it('FileNotFoundException catched', () => {
     const ex = new FileNotFoundException(msg);
+    expect(ex.message).toContain(msg);
+    expect(toCatchException(ex, msg)).not.toThrowError(ex as Error);
+  });
+
+  it('DirectoryNotFoundException catched', () => {
+    const ex = new DirectoryNotFoundException(msg);
     expect(ex.message).toContain(msg);
     expect(toCatchException(ex, msg)).not.toThrowError(ex as Error);
   });

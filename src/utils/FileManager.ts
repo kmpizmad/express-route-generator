@@ -1,6 +1,6 @@
 import { existsSync, lstatSync, readdirSync, readFileSync } from 'fs';
 import { join } from 'path';
-import { FileNotFoundException } from '../errors';
+import { DirectoryNotFoundException, FileNotFoundException } from '../errors';
 
 export class FileManager {
   public static setExtensions(
@@ -26,7 +26,7 @@ export class FileManager {
         );
       }
     } else {
-      throw new FileNotFoundException(`'${schemesDir}' is missing.`);
+      throw new DirectoryNotFoundException(`'${schemesDir}' is missing.`);
     }
   }
 }

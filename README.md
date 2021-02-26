@@ -50,6 +50,7 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 **list:**
 
 - **_-p | --path:_** defines the location of the server's `routes` folder
+- **_-r | --recursive:_** recursively prints folders and files
 
 **All of the above can be defined though an `erg.config.js` or `erg.config.json` file with these modifications:**
 

@@ -22,7 +22,7 @@ var FileManager = (function () {
             }
         }
         else {
-            throw new errors_1.FileNotFoundException("'" + schemesDir + "' is missing.");
+            throw new errors_1.DirectoryNotFoundException("'" + schemesDir + "' is missing.");
         }
     };
     return FileManager;
