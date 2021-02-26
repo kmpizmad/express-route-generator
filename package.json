@@ -30,6 +30,7 @@
     "url": "https://github.com/kmpizmad/express-route-generator/issues"
   },
   "bin": {
+    "@kmpizmad/express-route-generator": "bin/index.js",
     "express-route-generator": "bin/index.js",
     "express-route": "bin/index.js",
     "erg": "bin/index.js"
