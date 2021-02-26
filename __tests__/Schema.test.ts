@@ -1,25 +1,36 @@
 import { execSync } from 'child_process';
-import { Schema, TestSchema } from '../src/schemes';
+import {
+  HandlerSchema,
+  RouterSchema,
+  Schema,
+  TestSchema,
+} from '../src/schemes';
+
+afterEach(() => execSync('rm -rf somePath'));
 
 describe('Schema class', () => {
-  it('builds router', async done => {
-    const schema = new Schema('testRouter', '// Index');
+  const filename = 'testRouter';
+  const path = 'somePath';
+  const ext = '.js';
+  const methods = ['get'];
 
-    expect(() => {
-      schema.build('somePath', '.js', true);
-    }).not.toThrow();
-
-    done();
+  it('builds file', () => {
+    const schema = new Schema(filename, '// Index');
+    expect(() => schema.build(path, ext)).not.toThrow();
   });
-  it('builds test schema', async done => {
-    const testSchema = new TestSchema('testRouter', ['get', 'post'], true);
 
-    expect(() => {
-      testSchema.build('somePath', '.js', true);
-    }).not.toThrow();
+  it('RouterSchema builds', () => {
+    const routerSchema = new RouterSchema(filename, methods);
+    expect(() => routerSchema.build(path, ext)).not.toThrow();
+  });
 
-    execSync('rm -rf somePath');
+  it('HandlerSchema builds', () => {
+    const handlerSchema = new HandlerSchema(filename, methods);
+    expect(() => handlerSchema.build(path, ext)).not.toThrow();
+  });
 
-    done();
+  it('TestSchema builds', () => {
+    const testSchema = new TestSchema(filename, methods, true);
+    expect(() => testSchema.build(path, ext)).not.toThrow();
   });
 });

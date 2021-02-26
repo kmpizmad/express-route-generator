@@ -12,14 +12,12 @@ export class Schema {
     this._schema = schema;
   }
 
-  public build(path: string, extension: string, testing?: boolean): void {
+  public build(path: string, extension: string): void {
     if (!existsSync(path)) {
       mkdirSync(path, { recursive: true });
     }
 
     const file = join(path, this._name) + extension;
-    writeFile(file, this._schema, () => {
-      if (!testing) Chalk.writeLine(green, `created ${file}`);
-    });
+    writeFile(file, this._schema, Chalk.log(green, `created ${file}`));
   }
 }

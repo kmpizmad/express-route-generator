@@ -11,9 +11,11 @@ export class TestSchema extends Schema {
     this.__condition = condition;
   }
 
-  public build(path: string, extension: string, testing?: boolean): void {
+  public build(path: string, extension: string): void {
     if (this.__condition) {
-      super.build(path, extension, testing);
+      super.build(path, extension);
+    } else {
+      return;
     }
   }
 }

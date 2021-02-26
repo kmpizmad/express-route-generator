@@ -1,27 +1,44 @@
 import {
+  Exception,
+  FileNotFoundException,
   InvalidArgumentException,
   MissingParamsException,
 } from '../src/errors';
-import { SchemaBuilder } from '../src/schemes';
-import { setupCommand } from '../src/utils/commands/setupCommand';
+
+function toCatchException(ex: Exception, msg: string) {
+  return () => {
+    try {
+      throw ex;
+    } catch (e) {
+      expect(e.message).toContain(msg);
+    }
+  };
+}
 
 describe('Exception class', () => {
-  it('MissingArgumentException throws', () => {
-    const ex = new MissingParamsException(
-      '--path <path>, --methods <methods...>'
-    );
-    expect(() => {
-      setupCommand(true, ex);
-    }).toThrowError(ex as Error);
+  const msg = 'Test message';
+
+  it('Exception catched', () => {
+    const ex = new Exception(msg);
+    expect(ex.message).toContain(msg);
+    expect(toCatchException(ex, msg)).not.toThrowError(ex as Error);
   });
-  it('InvalidArgumentException throws', () => {
-    expect(() => {
-      const schemaBuilder = new SchemaBuilder('testRoute', ['get', 'post']);
-      schemaBuilder.build('buildSomething');
-    }).toThrowError(
-      new InvalidArgumentException(
-        "Couldn't recognize build pattern 'buildSomething'"
-      ) as Error
-    );
+
+  it('FileNotFoundException catched', () => {
+    const ex = new FileNotFoundException(msg);
+    expect(ex.message).toContain(msg);
+    expect(toCatchException(ex, msg)).not.toThrowError(ex as Error);
+  });
+
+  it('InvalidArgumentException catched', () => {
+    const ex = new InvalidArgumentException(msg);
+    expect(ex.message).toContain(msg);
+    expect(toCatchException(ex, msg)).not.toThrowError(ex as Error);
+  });
+
+  it('MissingArgumentException catched', () => {
+    const ex = new MissingParamsException(msg);
+    expect(ex.message).toContain(msg);
+    expect(toCatchException(ex, msg)).not.toThrowError(ex as Error);
   });
 });

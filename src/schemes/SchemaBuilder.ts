@@ -42,7 +42,7 @@ export class SchemaBuilder {
     }
   }
 
-  public static userBuild(options: UserOptions, testing?: boolean) {
+  public static userBuild(options: UserOptions) {
     const { path, filename, extension, schemesDir } = options;
     const routerSchema = FileManager.readSchema(schemesDir, 'index');
     const handlerSchema = FileManager.readSchema(schemesDir, '.handlers');
@@ -54,11 +54,11 @@ export class SchemaBuilder {
 
     [router, handlers, test].forEach(schema => {
       const folder = join(path, filename);
-      schema.build(folder, extension, testing);
+      schema.build(folder, extension);
     });
   }
 
-  public static defaultBuild(options: DefaultOptions, testing?: boolean) {
+  public static defaultBuild(options: DefaultOptions) {
     const { path, filename, extension, methods, test } = options;
     const routerSchema = new RouterSchema(filename, methods);
     const handlerSchema = new HandlerSchema(filename, methods);
@@ -68,7 +68,7 @@ export class SchemaBuilder {
 
     schemes.forEach(schema => {
       const folder = join(path, filename);
-      schema.build(folder, extension, testing);
+      schema.build(folder, extension);
     });
   }
 
@@ -106,7 +106,7 @@ export default router;`;
 
   private __buildTests(): string {
     return `import supertest from "supertest";
-      
+
 describe('${this.__filename} test', () => {
   ${this.__testRoutes()}
 });`;

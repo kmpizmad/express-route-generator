@@ -9,20 +9,19 @@ export class ConfigLoader {
    * @param files files to search from first to last
    */
   public static load(files: string[], exception?: Exception): Config {
-    for (let i = 0; i < files.length; i++) {
-      const file = join(process.cwd(), files[i]);
+    const file = files.filter(
+      file => existsSync(file) && lstatSync(file).isFile()
+    )[0];
 
-      if (existsSync(file) && lstatSync(file).isFile()) {
-        const config = require(file);
-        return config;
-      }
+    if (!!file) {
+      return require(join(process.cwd(), file));
+    } else {
+      const ex =
+        exception ||
+        new FileNotFoundException(
+          `Couldn't find any of these files: ${files.toString()}`
+        );
+      throw ex;
     }
-
-    const ex =
-      exception ||
-      new FileNotFoundException(
-        `Couldn't find any of these files: ${files.toString()}`
-      );
-    throw ex;
   }
 }
