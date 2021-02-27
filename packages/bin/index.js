@@ -20,7 +20,8 @@ program
     .option('--no-test', 'prevents generation of test file')
     .action(function (name, options, _) {
     try {
-        commands_1.add(name, options);
+        var command = new commands_1.AddCommand(name, options);
+        command.run();
     }
     catch (err) {
         console.log(err.message);
@@ -36,7 +37,8 @@ program
     .option('-t, --test', 'removes test file only')
     .action(function (name, options, _) {
     try {
-        commands_1.remove(name, options);
+        var command = new commands_1.RemoveCommand(name, options);
+        command.run();
     }
     catch (err) {
         console.log(err.message);
@@ -50,7 +52,8 @@ program
     .option('-r, --recursive', 'recursively prints folders and files')
     .action(function (options, _) {
     try {
-        commands_1.list(options);
+        var command = new commands_1.ListCommand(options);
+        command.run();
     }
     catch (err) {
         console.log(err.message);

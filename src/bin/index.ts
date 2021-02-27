@@ -2,7 +2,7 @@
 
 import { Command } from 'commander';
 import { AddOptions, ListOptions, RemoveOptions } from '../common/types';
-import { add, list, remove } from './commands';
+import { AddCommand, ListCommand, RemoveCommand } from './commands';
 
 const { name, description, version } = require('../../package.json');
 const program = new Command(name);
@@ -23,7 +23,8 @@ program
   .option('--no-test', 'prevents generation of test file')
   .action((name, options: AddOptions, _: Command) => {
     try {
-      add(name, options);
+      const command = new AddCommand(name, options);
+      command.run();
     } catch (err) {
       console.log(err.message);
     }
@@ -39,7 +40,8 @@ program
   .option('-t, --test', 'removes test file only')
   .action((name, options: RemoveOptions, _: Command) => {
     try {
-      remove(name, options);
+      const command = new RemoveCommand(name, options);
+      command.run();
     } catch (err) {
       console.log(err.message);
     }
@@ -53,7 +55,8 @@ program
   .option('-r, --recursive', 'recursively prints folders and files')
   .action((options: ListOptions, _: Command) => {
     try {
-      list(options);
+      const command = new ListCommand(options);
+      command.run();
     } catch (err) {
       console.log(err.message);
     }

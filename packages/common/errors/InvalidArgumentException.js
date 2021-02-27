@@ -19,8 +19,8 @@ exports.InvalidArgumentException = void 0;
 var Exception_1 = require("./Exception");
 var InvalidArgumentException = (function (_super) {
     __extends(InvalidArgumentException, _super);
-    function InvalidArgumentException(message) {
-        return _super.call(this, message) || this;
+    function InvalidArgumentException(message, innerException) {
+        return _super.call(this, message, innerException) || this;
     }
     return InvalidArgumentException;
 }(Exception_1.Exception));

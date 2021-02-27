@@ -4,7 +4,7 @@ import {
   FileNotFoundException,
   InvalidArgumentException,
   MissingParamsException,
-} from '../src/errors';
+} from '../src/common/errors';
 
 function toCatchException(ex: Exception, msg: string) {
   return () => {
@@ -20,7 +20,7 @@ describe('Exception class', () => {
   const msg = 'Test message';
 
   it('Exception catched', () => {
-    const ex = new Exception(msg);
+    const ex = new Exception(msg, new Exception(msg));
     expect(ex.message).toContain(msg);
     expect(toCatchException(ex, msg)).not.toThrowError(ex as Error);
   });

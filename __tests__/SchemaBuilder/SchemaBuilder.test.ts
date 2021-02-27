@@ -1,4 +1,4 @@
-import { SchemaBuilder } from '../../src/schemes';
+import { SchemaBuilder } from '../../src/common/schemes';
 
 const routerSchema = `import { Router } from "express";
 import { getController } from "./test-file.handlers";

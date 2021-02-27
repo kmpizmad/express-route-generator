@@ -19,8 +19,8 @@ exports.FileNotFoundException = void 0;
 var Exception_1 = require("./Exception");
 var FileNotFoundException = (function (_super) {
     __extends(FileNotFoundException, _super);
-    function FileNotFoundException(message) {
-        return _super.call(this, message) || this;
+    function FileNotFoundException(message, innerException) {
+        return _super.call(this, message, innerException) || this;
     }
     return FileNotFoundException;
 }(Exception_1.Exception));

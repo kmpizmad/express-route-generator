@@ -1,7 +1,7 @@
 import { execSync } from 'child_process';
 import { mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
-import { SchemaBuilder } from '../../src/schemes';
+import { SchemaBuilder } from '../../src/common/schemes';
 
 const name = 'mySchemes';
 const config = {

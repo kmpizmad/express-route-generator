@@ -19,8 +19,8 @@ exports.MissingParamsException = void 0;
 var Exception_1 = require("./Exception");
 var MissingParamsException = (function (_super) {
     __extends(MissingParamsException, _super);
-    function MissingParamsException(message) {
-        return _super.call(this, message) || this;
+    function MissingParamsException(message, innerException) {
+        return _super.call(this, message, innerException) || this;
     }
     return MissingParamsException;
 }(Exception_1.Exception));

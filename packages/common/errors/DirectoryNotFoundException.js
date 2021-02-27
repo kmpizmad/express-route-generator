@@ -19,8 +19,8 @@ exports.DirectoryNotFoundException = void 0;
 var Exception_1 = require("./Exception");
 var DirectoryNotFoundException = (function (_super) {
     __extends(DirectoryNotFoundException, _super);
-    function DirectoryNotFoundException(message) {
-        return _super.call(this, message) || this;
+    function DirectoryNotFoundException(message, innerException) {
+        return _super.call(this, message, innerException) || this;
     }
     return DirectoryNotFoundException;
 }(Exception_1.Exception));

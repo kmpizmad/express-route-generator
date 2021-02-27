@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';
 import { writeFileSync } from 'fs';
-import { ConfigLoader } from '../../src/utils/ConfigLoader';
+import { ConfigLoader } from '../../src/common/utils/ConfigLoader';
 
 const filename = 'erg.config.js';
 

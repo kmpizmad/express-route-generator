@@ -13,8 +13,7 @@ var ConfigLoader = (function () {
             return require(path_1.join(process.cwd(), file));
         }
         else {
-            var ex = exception ||
-                new errors_1.FileNotFoundException("Couldn't find any of these files: " + files.toString());
+            var ex = new errors_1.FileNotFoundException("Couldn't find any of these files: " + files.toString(), exception);
             throw ex;
         }
     };

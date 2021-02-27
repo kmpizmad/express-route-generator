@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { SchemaBuilder } from '../../src/schemes';
+import { SchemaBuilder } from '../../src/common/schemes';
 
 const config = {
   extension: '.js',

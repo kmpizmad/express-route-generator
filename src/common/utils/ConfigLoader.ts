@@ -16,11 +16,10 @@ export class ConfigLoader {
     if (!!file) {
       return require(join(process.cwd(), file));
     } else {
-      const ex =
-        exception ||
-        new FileNotFoundException(
-          `Couldn't find any of these files: ${files.toString()}`
-        );
+      const ex = new FileNotFoundException(
+        `Couldn't find any of these files: ${files.toString()}`,
+        exception
+      );
       throw ex;
     }
   }
