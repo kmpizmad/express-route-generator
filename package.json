@@ -7,7 +7,8 @@
   "deprecated": false,
   "type": "commonjs",
   "files": [
-    "bin"
+    "packages/bin",
+    "packages/module"
   ],
   "author": "Viktor Nagy",
   "engines": {
@@ -30,9 +31,9 @@
     "url": "https://github.com/kmpizmad/express-route-generator/issues"
   },
   "bin": {
-    "express-route-generator": "bin/index.js",
-    "express-route": "bin/index.js",
-    "erg": "bin/index.js"
+    "express-route-generator": "packages/bin/index.js",
+    "express-route": "packages/bin/index.js",
+    "erg": "packages/bin/index.js"
   },
   "publishConfig": {
     "access": "public"
@@ -55,10 +56,10 @@
   },
   "scripts": {
     "git": "git add . && git commit -m",
-    "link": "npm link --force && rm -rf package-lock.json",
+    "lnk": "npm link --force && rm -rf package-lock.json",
     "test": "jest --detectOpenHandles",
     "test:coveralls": "yarn test --coverage && coveralls < __coverage__/lcov.info",
-    "build": "rm -rf bin && tsc --project .",
+    "build": "rm -rf packages && tsc --project .",
     "deploy": "git push && git push --tags && npm publish"
   }
 }

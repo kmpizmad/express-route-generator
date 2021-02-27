@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { AddOptions, ListOptions, RemoveOptions } from './types';
-import { add, list, remove } from './utils/commands';
+import { AddOptions, ListOptions, RemoveOptions } from '../common/types';
+import { add, list, remove } from './commands';
 
-const { name, description, version } = require('../package.json');
+const { name, description, version } = require('../../package.json');
 const program = new Command(name);
 
 program.description(description);

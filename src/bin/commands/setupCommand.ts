@@ -1,7 +1,7 @@
-import { Exception } from '../../errors';
-import { ConfigFile } from '../../types';
-import { ConfigLoader } from '../ConfigLoader';
-import { FileManager } from '../FileManager';
+import { Exception } from '../../common/errors';
+import { ConfigFile } from '../../common/types';
+import { ConfigLoader } from '../../common/utils/ConfigLoader';
+import { FileManager } from '../../common/utils/FileManager';
 
 export function setupCommand(
   condition: boolean,

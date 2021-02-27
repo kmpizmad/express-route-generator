@@ -1,6 +1,6 @@
-import { MissingParamsException } from '../../errors';
-import { SchemaBuilder } from '../../schemes';
-import { AddOptions } from '../../types';
+import { MissingParamsException } from '../../common/errors';
+import { SchemaBuilder } from '../../common/schemes';
+import { AddOptions } from '../../common/types';
 import { setupCommand } from './setupCommand';
 
 export function add(name: string, options: AddOptions) {

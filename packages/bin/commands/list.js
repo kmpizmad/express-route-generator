@@ -4,8 +4,8 @@ exports.list = void 0;
 var chalk_1 = require("chalk");
 var fs_1 = require("fs");
 var path_1 = require("path");
-var errors_1 = require("../../errors");
-var chalk_2 = require("../../vendors/chalk");
+var errors_1 = require("../../common/errors");
+var chalk_2 = require("../../common/vendors/chalk");
 var setupCommand_1 = require("./setupCommand");
 function list(options) {
     var config = setupCommand_1.setupCommand(!options.path, new errors_1.MissingParamsException('--path <path>'));

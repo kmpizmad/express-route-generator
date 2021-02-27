@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.add = void 0;
-var errors_1 = require("../../errors");
-var schemes_1 = require("../../schemes");
+var errors_1 = require("../../common/errors");
+var schemes_1 = require("../../common/schemes");
 var setupCommand_1 = require("./setupCommand");
 function add(name, options) {
     var isMissing = !(pathWithSchemes(options.path, options.schemes) ||

@@ -1,9 +1,19 @@
 export interface ConfigFile {
   rootDir: string;
-  schemesDir: string;
-  methods: ('get' | 'post' | 'put' | 'patch' | 'delete' | 'options' | 'head')[];
-  language: 'javascript' | 'typescript';
-  test: boolean;
+  schemesDir?: string;
+  methods?: (
+    | 'get'
+    | 'getOne'
+    | 'post'
+    | 'put'
+    | 'putOne'
+    | 'patch'
+    | 'patchOne'
+    | 'delete'
+    | 'deleteOne'
+  )[];
+  language?: 'javascript' | 'typescript';
+  test?: boolean;
 }
 
 export interface Config {

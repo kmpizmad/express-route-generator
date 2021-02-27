@@ -5,9 +5,9 @@ import {
   DirectoryNotFoundException,
   FileNotFoundException,
   MissingParamsException,
-} from '../../errors';
-import { ListOptions } from '../../types';
-import { Chalk } from '../../vendors/chalk';
+} from '../../common/errors';
+import { ListOptions } from '../../common/types';
+import { Chalk } from '../../common/vendors/chalk';
 import { setupCommand } from './setupCommand';
 
 export function list(options: ListOptions) {

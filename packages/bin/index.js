@@ -2,8 +2,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var commander_1 = require("commander");
-var commands_1 = require("./utils/commands");
-var _a = require('../package.json'), name = _a.name, description = _a.description, version = _a.version;
+var commands_1 = require("./commands");
+var _a = require('../../package.json'), name = _a.name, description = _a.description, version = _a.version;
 var program = new commander_1.Command(name);
 program.description(description);
 program.version(version, '-v, --version');
