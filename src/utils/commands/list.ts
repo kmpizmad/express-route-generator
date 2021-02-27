@@ -6,11 +6,11 @@ import {
   FileNotFoundException,
   MissingParamsException,
 } from '../../errors';
-import { List } from '../../types';
+import { ListOptions } from '../../types';
 import { Chalk } from '../../vendors/chalk';
 import { setupCommand } from './setupCommand';
 
-export function list(options: List) {
+export function list(options: ListOptions) {
   const config = setupCommand(
     !options.path,
     new MissingParamsException('--path <path>')

@@ -2,11 +2,11 @@ import { red } from 'chalk';
 import { existsSync, lstatSync, readdirSync, rm } from 'fs';
 import { join } from 'path';
 import { FileNotFoundException, MissingParamsException } from '../../errors';
-import { Remove } from '../../types';
+import { RemoveOptions } from '../../types';
 import { Chalk } from '../../vendors/chalk';
 import { setupCommand } from './setupCommand';
 
-export function remove(name: string, options: Remove) {
+export function remove(name: string, options: RemoveOptions) {
   const config = setupCommand(
     !options.path,
     new MissingParamsException('--path <path>')

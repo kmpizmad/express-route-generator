@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { Add, List, Remove } from './types';
+import { AddOptions, ListOptions, RemoveOptions } from './types';
 import { add, list, remove } from './utils/commands';
 
 const { name, description, version } = require('../package.json');
@@ -21,7 +21,7 @@ program
   .option('-m, --methods <methods...>', 'accepted methods')
   .option('--typescript', 'generates the files with .ts extension', false)
   .option('--no-test', 'prevents generation of test file')
-  .action((name, options: Add, _: Command) => {
+  .action((name, options: AddOptions, _: Command) => {
     try {
       add(name, options);
     } catch (err) {
@@ -37,7 +37,7 @@ program
   })
   .option('-p, --path <path>', "path of the 'routes' folder")
   .option('-t, --test', 'removes test file only')
-  .action((name, options: Remove, _: Command) => {
+  .action((name, options: RemoveOptions, _: Command) => {
     try {
       remove(name, options);
     } catch (err) {
@@ -51,7 +51,7 @@ program
   .description('lists all routes')
   .option('-p, --path <path>', "path of the 'routes' folder")
   .option('-r, --recursive', 'recursively prints folders and files')
-  .action((options: List, _: Command) => {
+  .action((options: ListOptions, _: Command) => {
     try {
       list(options);
     } catch (err) {

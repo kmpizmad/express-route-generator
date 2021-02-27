@@ -1,9 +1,9 @@
 import { MissingParamsException } from '../../errors';
 import { SchemaBuilder } from '../../schemes';
-import { Add } from '../../types';
+import { AddOptions } from '../../types';
 import { setupCommand } from './setupCommand';
 
-export function add(name: string, options: Add) {
+export function add(name: string, options: AddOptions) {
   const isMissing = !(
     pathWithSchemes(options.path, options.schemes) ||
     pathWithMethods(options.path, options.methods)
