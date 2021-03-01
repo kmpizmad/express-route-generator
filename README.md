@@ -106,7 +106,7 @@ Default: `false`
 [`schemesDir` [string]](#-schemesdir---string-)<br />
 [`language` [string]](#-language---string-)<br />
 [`test` [boolean]](#-test---boolean-)<br />
-[`methods` [array<string>]](#-methods---array-string--)
+[`methods` [array]](#methods-array)
 
 ### Reference
 
