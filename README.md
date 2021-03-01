@@ -43,7 +43,7 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 [`-s, --schemes` [string]](#schemesDir-string)<br />
 [`--typescript` [string]](#language-string)<br />
 [`--no-test` [boolean]](#test-boolean)<br />
-[`-m, --methods` [array<string>]](#methods---array-string)
+[`-m, --methods` [array<string>]](#methods-array)
 
 **remove:**<br />
 
