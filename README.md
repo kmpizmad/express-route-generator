@@ -11,9 +11,9 @@
   - [Installation](#installation)
   - [Commands](#commands)
   - [Options](#options)
-    - [Reference](#reference)
+    - [Options Reference](#options-reference)
   - [Configuration](#configuration)
-    - [Reference](#reference-1)
+    - [Configuration Reference](#configuration-reference)
   - [Custom Schemes](#custom-schemes)
   - [Examples](#examples)
   - [License](#license)
@@ -57,7 +57,7 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 
 **All of the above can be defined though an `erg.config.js` or `erg.config.json` file**
 
-### Reference
+### Options Reference
 
 ##### `-t, --test` [boolean]
 
@@ -108,7 +108,7 @@ Default: `false`
 [`test` [boolean]](#-test---boolean-)<br />
 [`methods` [array]](#methods-array)
 
-### Reference
+### Configuration Reference
 
 ##### `rootDir` [string]
 
