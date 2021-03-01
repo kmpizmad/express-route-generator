@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';
 import { mkdirSync } from 'fs';
-import { FileManager } from '../../src/utils/FileManager';
+import { FileManager } from '../../src/common/utils/FileManager';
 
 const folder = 'somePath';
 const name = 'index';

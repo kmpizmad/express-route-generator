@@ -4,7 +4,7 @@ import {
   RouterSchema,
   Schema,
   TestSchema,
-} from '../src/schemes';
+} from '../src/common/schemes';
 
 afterEach(() => execSync('rm -rf somePath'));
 

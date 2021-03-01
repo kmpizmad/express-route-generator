@@ -1,4 +1,4 @@
-import { Chalk } from '../../src/vendors/chalk';
+import { Chalk } from '../../src/common/vendors/chalk';
 import { green } from 'chalk';
 
 describe('Chalk', () => {

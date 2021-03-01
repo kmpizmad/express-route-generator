@@ -118,5 +118,7 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/node
 
-erg.config.*
 __coverage__
+erg.config.*
+src/module
+src/index.ts

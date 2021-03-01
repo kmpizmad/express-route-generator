@@ -1,11 +1,11 @@
 import { execSync } from 'child_process';
-import { SchemaBuilder } from '../../src/schemes';
+import { SchemaBuilder } from '../../src/common/schemes';
 
 const config = {
   extension: '.js',
   filename: 'testRoute',
   path: 'routes',
-  methods: ['get', 'post'],
+  methods: ['getOne', 'postOne'],
   test: false,
 };
 
