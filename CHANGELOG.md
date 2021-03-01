@@ -1,5 +1,5 @@
-# Changelog v1.4.0
+# Changelog v1.4.3
 
-## Added
+## Fixed
 
-- option to generate `getOne`, `putOne`, `patchOne` and `deleteOne` handlers
+- file generation

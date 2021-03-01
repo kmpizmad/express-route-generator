@@ -84,7 +84,7 @@ var SchemaBuilder = (function () {
     SchemaBuilder.prototype.__buildHandlers = function () {
         return this.__methods
             .map(function (method) {
-            return "export const " + method + "Controller = async (req, res, next) => {};";
+            return "export const " + method + "Handler = async (req, res, next) => {};";
         })
             .join('\n');
     };
@@ -93,7 +93,7 @@ var SchemaBuilder = (function () {
         var imports = 'import supertest from "supertest";\n\n';
         var tests = this.__methods
             .map(function (method) {
-            return "it(\"" + method + "\", async done => {\n\t\tconst response = supertest(server)." + _this.__normalizeMethod(method) + "(\"/" + _this.__name + "\");\n\t\t// Expectations\n\t\tdone();\n\t});";
+            return "it(\"" + method + "\", async done => {\n\t\tconst response = await supertest(server)." + _this.__normalizeMethod(method) + "(\"/" + _this.__name + "\");\n\t\t// Expectations\n\t\tdone();\n\t});";
         })
             .join('\n\t');
         var describe = "describe(\"" + this.__name + " test\", () => {\n\t" + tests + "\n});";
