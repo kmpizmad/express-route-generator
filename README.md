@@ -39,20 +39,20 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 
 **add:**<br />
 
-[`-p, --path` [string]](#-rootDir---string-)
-[`-s, --schemes` [string]](#-schemesDir---string-)
-[`--typescript` [string]](#-language---string-)
-[`--no-test` [boolean]](#-test---boolean-)
+[`-p, --path` [string]](#-rootDir---string-)<br />
+[`-s, --schemes` [string]](#-schemesDir---string-)<br />
+[`--typescript` [string]](#-language---string-)<br />
+[`--no-test` [boolean]](#-test---boolean-)<br />
 [`-m, --methods` [array<string>]](#-methods---array-string--)
 
 **remove:**<br />
 
-[`-p, --path` [string]](#-rootDir---string-)
+[`-p, --path` [string]](#-rootDir---string-)<br />
 [`-t, --test` [boolean]](#--t----test---boolean-)
 
 **list:**
 
-[`-p, --path` [string]](#-rootDir---string-)
+[`-p, --path` [string]](#-rootDir---string-)<br />
 [`-r, --recursive` [boolean]](#--r----recursive---boolean-)
 
 **All of the above can be defined though an `erg.config.js` or `erg.config.json` file**
@@ -102,10 +102,10 @@ Default: `false`
 
 ## Configuration
 
-[`rootDir` [string]](#-rootdir---string-)
-[`schemesDir` [string]](#-schemesdir---string-)
-[`language` [string]](#-language---string-)
-[`test` [boolean]](#-test---boolean-)
+[`rootDir` [string]](#-rootdir---string-)<br />
+[`schemesDir` [string]](#-schemesdir---string-)<br />
+[`language` [string]](#-language---string-)<br />
+[`test` [boolean]](#-test---boolean-)<br />
 [`methods` [array<string>]](#-methods---array-string--)
 
 ### Reference
