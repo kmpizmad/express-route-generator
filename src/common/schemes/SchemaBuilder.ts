@@ -2,17 +2,24 @@ import { join } from 'path';
 import { HandlerSchema, RouterSchema, Schema, TestSchema } from '.';
 import { InvalidArgumentException } from '../errors';
 import { DefaultOptions, UserOptions } from '../types';
+import { ArrayFormatter } from '../utils/ArrayFormatter';
 import { FileManager } from '../utils/FileManager';
 
 export class SchemaBuilder {
-  private __filename: string;
+  private __name: string;
   private __methods: string[];
+  private __normalMethods: string[];
+  private __paramMethods: string[];
 
-  constructor(filename: string, methods: string[]) {
-    this.__filename = filename;
+  constructor(name: string, methods: string[]) {
+    this.__name = name;
     this.__methods = methods;
+    this.__divideMethods(methods);
   }
 
+  // * ------------------------------
+  // * PUBLIC MEMBERS
+  // * ------------------------------
   public build(name: string): string {
     switch (name) {
       case 'index':
@@ -71,58 +78,92 @@ export class SchemaBuilder {
       schema.build(folder, extension);
     });
   }
+  // * ------------------------------
+  // * END OF PUBLIC MEMBERS
+  // * ------------------------------
 
+  // * ------------------------------
+  // * PRIVATE MEMBERS
+  // * ------------------------------
   private __buildRouter(): string {
-    return `import { Router } from "express";
-import { ${this.__controllers(', ', true)} } from "./${
-      this.__filename
-    }.handlers";
+    const allControllers: string = this.__methods
+      .map(method => method + 'Handler')
+      .join(', ');
+    const normalControllers: string = this.__buildOperations(
+      this.__normalMethods
+    ).join('.');
+    const paramControllers: string = this.__buildOperations(
+      this.__paramMethods
+    ).join('.');
 
-const router = Router();
+    const imports: string =
+      'import { Router } from "express";\nimport { ' +
+      allControllers +
+      ' } from "./' +
+      this.__name +
+      '.handlers";\n\n';
 
-router.route('/').${this.__controllers('.')};
+    const routerInstance: string = 'const router = Router();\n';
+    const normalRouter: string = !!normalControllers
+      ? 'router.route("/").' + normalControllers + ';\n'
+      : '';
+    const paramRouter = !!paramControllers
+      ? 'router.route("/:id").' + paramControllers + ';\n'
+      : '';
+    const router: string = routerInstance + normalRouter + paramRouter;
 
-export default router;`;
-  }
+    const exports: string = '\nexport default router;';
 
-  private __controllers(joinChar: string, importStatement?: boolean): string {
-    return this.__methods
-      .map(method => {
-        return importStatement
-          ? `${method}Controller`
-          : `${method}(${method}Controller)`;
-      })
-      .join(joinChar);
+    return imports + router + exports;
   }
 
   private __buildHandlers(): string {
     return this.__methods
       .map(
         method =>
-          `export const ${method}Controller = async (req, res, next) => {};`
+          `export const ${method}Handler = async (req, res, next) => {};`
       )
       .join('\n');
   }
 
   private __buildTests(): string {
-    return `import supertest from "supertest";
-
-describe('${this.__filename} test', () => {
-  ${this.__testRoutes()}
-});`;
-  }
-
-  private __testRoutes(): string {
-    return this.__methods
+    const imports: string = 'import supertest from "supertest";\n\n';
+    const tests: string = this.__methods
       .map(
-        method => `it('${method}', async done => {
-    const response = await supertest(server).${method}('/${this.__filename}');
-
-    // expectations
-
-    done();
-  });`
+        method =>
+          `it("${method}", async done => {\n\t\tconst response = await supertest(server).${this.__normalizeMethod(
+            method
+          )}("/${this.__name}");\n\t\t// Expectations\n\t\tdone();\n\t});`
       )
-      .join('\n  ');
+      .join('\n\t');
+
+    const describe: string = `describe("${this.__name} test", () => {\n\t${tests}\n});`;
+
+    return imports + describe;
   }
+
+  private __buildOperations(methods: string[]): string[] {
+    return methods.map(
+      method => `${this.__normalizeMethod(method)}(${method}Handler)`
+    );
+  }
+
+  private __normalizeMethod(method: string): string {
+    return method.toLowerCase().includes('one')
+      ? method.substring(0, method.length - 3)
+      : method;
+  }
+
+  private __divideMethods(methods: string[]) {
+    const [normal, param] = ArrayFormatter.divide(methods, this.__addMethod);
+    this.__normalMethods = normal;
+    this.__paramMethods = param;
+  }
+
+  private __addMethod(method: string): boolean {
+    return method.toLowerCase().includes('one');
+  }
+  // * ------------------------------
+  // * END OF PRIVATE MEMBERS
+  // * ------------------------------
 }

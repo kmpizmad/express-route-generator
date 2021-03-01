@@ -1,31 +1,17 @@
 import { SchemaBuilder } from '../../src/common/schemes';
 
-const routerSchema = `import { Router } from "express";
-import { getController } from "./test-file.handlers";
+const routerSchema =
+  'import { Router } from "express";\nimport { getHandler, getOneHandler } from "./test-file.handlers";\n\nconst router = Router();\nrouter.route("/").get(getHandler);\nrouter.route("/:id").get(getOneHandler);\n\nexport default router;';
 
-const router = Router();
+const handlerSchema =
+  'export const getHandler = async (req, res, next) => {};\nexport const getOneHandler = async (req, res, next) => {};';
 
-router.route('/').get(getController);
-
-export default router;`;
-
-const handlerSchema = `export const getController = async (req, res, next) => {};`;
-
-const testSchema = `import supertest from "supertest";
-
-describe('test-file test', () => {
-  it('get', async done => {
-    const response = await supertest(server).get('/test-file');
-
-    // expectations
-
-    done();
-  });
-});`;
+const testSchema =
+  'import supertest from "supertest";\n\ndescribe("test-file test", () => {\n\tit("get", async done => {\n\t\tconst response = await supertest(server).get("/test-file");\n\t\t// Expectations\n\t\tdone();\n\t});\n\tit("getOne", async done => {\n\t\tconst response = await supertest(server).get("/test-file");\n\t\t// Expectations\n\t\tdone();\n\t});\n});';
 
 describe('SchemaBuilder class', () => {
   const filename = 'test-file';
-  const methods = ['get'];
+  const methods = ['get', 'getOne'];
   const schemaBuilder = new SchemaBuilder(filename, methods);
 
   it('builds router', () => {

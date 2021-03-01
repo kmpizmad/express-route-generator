@@ -5,7 +5,7 @@ const config = {
   extension: '.js',
   filename: 'testRoute',
   path: 'routes',
-  methods: ['get', 'post'],
+  methods: ['getOne', 'postOne'],
   test: false,
 };
 

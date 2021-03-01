@@ -20,7 +20,7 @@ var chalk_1 = require("chalk");
 var fs_1 = require("fs");
 var path_1 = require("path");
 var errors_1 = require("../../common/errors");
-var chalk_2 = require("../../common/vendors/chalk");
+var vendors_1 = require("../../common/vendors");
 var CliCommand_1 = require("./CliCommand");
 var RemoveCommand = (function (_super) {
     __extends(RemoveCommand, _super);
@@ -60,7 +60,7 @@ var RemoveCommand = (function (_super) {
         var testFile = files.filter(function (file) { return file.includes(filename); }).join('');
         var filePath = path_1.join(folder, testFile);
         if (fs_1.lstatSync(filePath).isFile()) {
-            fs_1.rm(filePath, chalk_2.Chalk.log(chalk_1.red, "deleted " + filePath));
+            fs_1.rm(filePath, vendors_1.Chalk.log(chalk_1.red, "deleted " + filePath));
         }
         else {
             var dotIndex = files[0].lastIndexOf('.');
@@ -69,7 +69,7 @@ var RemoveCommand = (function (_super) {
         }
     };
     RemoveCommand.prototype.__removeDir = function (folder) {
-        fs_1.rm(folder, { recursive: true }, chalk_2.Chalk.log(chalk_1.red, "deleted " + folder));
+        fs_1.rm(folder, { recursive: true }, vendors_1.Chalk.log(chalk_1.red, "deleted " + folder));
     };
     return RemoveCommand;
 }(CliCommand_1.CliCommand));

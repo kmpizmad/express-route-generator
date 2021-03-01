@@ -11,8 +11,11 @@
   - [Installation](#installation)
   - [Commands](#commands)
   - [Options](#options)
+    - [Reference](#reference)
+  - [Configuration](#configuration)
+    - [Reference](#reference-1)
   - [Custom Schemes](#custom-schemes)
-  - [Example](#example)
+  - [Examples](#examples)
   - [License](#license)
 
 # Express route generator
@@ -36,39 +39,164 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 
 **add:**<br />
 
-- **_-p | --path:_** defines the location of the server's `routes` folder
-- **_-s | --schemes:_** defines the location of your schemes
-- **_-m | --methods:_** defines the HTTP methods that should be generated
-- **_--typescript:_** defines the extension only (to avoid forcing predefined types on the user)
-- **_--no-test:_** skips the test file
+[`-p, --path` [string]](#-rootDir---string-)
+[`-s, --schemes` [string]](#-schemesDir---string-)
+[`--typescript` [string]](#-language---string-)
+[`--no-test` [boolean]](#-test---boolean-)
+[`-m, --methods` [array<string>]](#-methods---array-string--)
 
 **remove:**<br />
 
-- **_-p | --path:_** defines the location of the server's `routes` folder
-- **_-t | --test:_** removes test file only
+[`-p, --path` [string]](#-rootDir---string-)
+[`-t, --test` [boolean]](#--t----test---boolean-)
 
 **list:**
 
-- **_-p | --path:_** defines the location of the server's `routes` folder
-- **_-r | --recursive:_** recursively prints folders and files
+[`-p, --path` [string]](#-rootDir---string-)
+[`-r, --recursive` [boolean]](#--r----recursive---boolean-)
 
-**All of the above can be defined though an `erg.config.js` or `erg.config.json` file with these modifications:**
+**All of the above can be defined though an `erg.config.js` or `erg.config.json` file**
 
-**_--path_** => `rootDir`<br />
-**_--schemes_** => `schemesDir`<br />
-**_--typescript_** => `language` (either `javascript` or `typescript`)<br />
-**_--no-test_** => `test` (`true` by default)
+### Reference
+
+##### `-t, --test` [boolean]
+
+Default: `false`
+
+Removes the test file only.
+
+Example:
 
 ```
-// erg.config.js
+// erg rm myRoute --test
 
-module.exports = {
-  rootDir: 'src/server/routes',
-  schemesDir: 'mySchemes',
-  language: 'javascript' /* default */,
-  test: true /* default */,
-  methods: ['get', 'post', 'put', 'patch', 'delete', 'options', 'head'] /* available methods */,
-};
+routes
+└ myRoute
+  └ index.js
+  └ myRoute.handlers.js
+```
+
+##### `-r, --recursive` [boolean]
+
+Recursively lists every route.
+
+Example:
+
+```
+myRoute
+  └ index.js
+  └ myRoute.handlers.js
+  └ myRoute.test.js
+myRoute2
+  └ index.js
+  └ myRoute2.handlers.js
+  └ myRoute2.test.js
+myRoute3
+  └ index.js
+  └ myRoute3.handlers.js
+  └ myRoute3.test.js
+
+```
+
+Default: `false`
+
+## Configuration
+
+[`rootDir` [string]](#-rootdir---string-)
+[`schemesDir` [string]](#-schemesdir---string-)
+[`language` [string]](#-language---string-)
+[`test` [boolean]](#-test---boolean-)
+[`methods` [array<string>]](#-methods---array-string--)
+
+### Reference
+
+##### `rootDir` [string]
+
+Default: `undefined`
+
+Path to the folder where the routes are stored. Equivalent of `-p, --path <path>`.
+
+Examples:
+
+- `rootDir: ./server/routes`
+- `rootDir: ./server/api/endpoints`
+
+##### `schemesDir` [string]
+
+Default: `undefined`
+
+Path to the folder where the custom schemes are stored. Equivalent of `-s, --schemes <path>`.
+
+Examples:
+
+- `schemesDir: ./schemes`
+- `schemesDir: ./server/routes/schemes`
+
+##### `language` [string]
+
+Default: `javascript`
+
+Defines the extension of the files. Equivalent of `--typescript`.
+
+Available values:
+
+- `javascript`
+- `typescript`
+
+Example:
+
+```
+// language: 'javascript'
+
+routes
+└ myRoute
+  └ index.js
+  └ myRoute.handlers.js
+  └ myRoute.test.js
+```
+
+##### `test` [boolean]
+
+Default: `true`
+
+Defines if a test file should be generated. Equivalent of `--no-test`.
+
+Example:
+
+```
+// test: false
+
+routes
+└ myRoute
+  └ index.js
+  └ myRoute.handlers.js
+```
+
+##### `methods` [array<string>]
+
+Default: `undefined`
+
+Defines what methods should be handled by the router. Equivalent of `-m, --methods <methods...>`.
+
+Available values:
+
+- `get`
+- `getOne`
+- `post`
+- `put`
+- `putOne`
+- `patch`
+- `patchOne`
+- `delete`
+- `deleteOne`
+
+```
+// methods: ['get', 'getOne']
+
+routes
+└ myRoute
+  └ index.js
+  └ myRoute.handlers.js
 ```
 
 ## Custom Schemes
@@ -121,12 +249,13 @@ root
 
 module.exports = {
   rootDir: "src/server/routes",
-  methods: ["get", "post"]
+  methods: ["get", "getOne"]
 }
 ```
 
 ```
 // Example output of 'erg add generatedRoute'
+
 root
 └ src
   └ server
@@ -138,16 +267,12 @@ root
       └ generatedRoute.test.js
       └ index.js
   └ utils
-```
 
-```
 // generatedRoute.handlers.js
 
-export const getController = async (req, res, next) => {};
-export const postController = async (req, res, next) => {};
-```
+export const getHandler = async (req, res, next) => {};
+export const getOneHandler = async (req, res, next) => {};
 
-```
 // generatedRoute.test.js
 
 import supertest from "supertest";
@@ -155,32 +280,24 @@ import supertest from "supertest";
 describe('generatedRoute test', () => {
   it('get', async done => {
     const response = await supertest(server).get('/generatedRoute');
-
-    // expectations
-
+    // Expectations
     done();
-
   });
-  it('post', async done => {
+  it('getOne', async done => {
     const response = await supertest(server).get('/generatedRoute');
-
-    // expectations
-
+    // Expectations
     done();
-
   });
 });
-```
 
-```
 // index.js
 
 import { Router } from 'express';
-import { getController, postController } from './generatedRoute.handlers';
+import { getHandler, getOneHandler } from './generatedRoute.handlers';
 
 const router = Router();
-
-router.route('/').get(getController).post(postController);
+router.route("/").get(getHandler)
+router.route("/:id").get(getOneHandler);
 
 export default router;
 ```

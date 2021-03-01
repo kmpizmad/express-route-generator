@@ -1,7 +1,5 @@
-# Changelog v1.3.0
+# Changelog v1.4.0
 
 ## Added
 
-- new options for `list` command
-- test suite
-- new exception `DirectoryNotFoundException`
+- option to generate `getOne`, `putOne`, `patchOne` and `deleteOne` handlers

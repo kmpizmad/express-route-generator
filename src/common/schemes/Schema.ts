@@ -1,7 +1,7 @@
 import { green } from 'chalk';
 import { existsSync, mkdirSync, writeFile } from 'fs';
 import { join } from 'path';
-import { Chalk } from '../vendors/chalk';
+import { Chalk } from '../vendors';
 
 export class Schema {
   protected _name: string;

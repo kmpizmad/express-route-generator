@@ -7,7 +7,7 @@ import {
   MissingParamsException,
 } from '../../common/errors';
 import { ListOptions } from '../../common/types';
-import { Chalk } from '../../common/vendors/chalk';
+import { Chalk } from '../../common/vendors';
 import { CliCommand } from './CliCommand';
 
 export class ListCommand extends CliCommand<ListOptions> {

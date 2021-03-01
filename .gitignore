@@ -120,3 +120,5 @@ dist
 
 __coverage__
 erg.config.*
+src/module
+src/index.ts

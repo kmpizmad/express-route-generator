@@ -6,7 +6,7 @@ import {
   MissingParamsException,
 } from '../../common/errors';
 import { RemoveOptions } from '../../common/types';
-import { Chalk } from '../../common/vendors/chalk';
+import { Chalk } from '../../common/vendors';
 import { CliCommand } from './CliCommand';
 
 export class RemoveCommand extends CliCommand<RemoveOptions> {

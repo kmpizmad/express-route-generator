@@ -20,7 +20,7 @@ var chalk_1 = require("chalk");
 var fs_1 = require("fs");
 var path_1 = require("path");
 var errors_1 = require("../../common/errors");
-var chalk_2 = require("../../common/vendors/chalk");
+var vendors_1 = require("../../common/vendors");
 var CliCommand_1 = require("./CliCommand");
 var ListCommand = (function (_super) {
     __extends(ListCommand, _super);
@@ -42,12 +42,12 @@ var ListCommand = (function (_super) {
                 if (ind === 0)
                     return;
                 else
-                    chalk_2.Chalk.writeLine(isDir ? chalk_1.yellow : chalk_1.white, _this.__createMsg(file, ind));
+                    vendors_1.Chalk.writeLine(isDir ? chalk_1.yellow : chalk_1.white, _this.__createMsg(file, ind));
             });
         }
         else {
             this.__listHandler(path, function (files) {
-                return chalk_2.Chalk.writeLine(chalk_1.yellow, files.join('  '));
+                return vendors_1.Chalk.writeLine(chalk_1.yellow, files.join('  '));
             });
         }
     };

@@ -27,8 +27,9 @@ export interface Config {
 
 export interface Route {
   name: string;
-  methods: Methods;
+  methods?: Methods;
   test?: boolean;
+  schemes?: Schema[];
 }
 
 export interface Methods {
@@ -41,4 +42,9 @@ export interface Methods {
   patchOne?: boolean;
   delete?: boolean;
   deleteOne?: boolean;
+}
+
+export interface Schema {
+  name: string;
+  text: string;
 }
