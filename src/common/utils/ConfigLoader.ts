@@ -13,7 +13,7 @@ export class ConfigLoader {
       file => existsSync(file) && lstatSync(file).isFile()
     )[0];
 
-    if (!!file) {
+    if (file) {
       return require(join(process.cwd(), file));
     } else {
       const ex = new FileNotFoundException(

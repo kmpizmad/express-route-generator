@@ -12,6 +12,7 @@ function default_1(config) {
         fs_1.mkdirSync(routesFolder, { recursive: true });
     }
     config.routes.forEach(function (route) {
+        var _a;
         var hasSchemes = route.schemes && route.schemes.length > 0;
         var hasMethods = route.methods && Object.getOwnPropertyNames(route.methods).length > 0;
         if (hasSchemes) {
@@ -19,7 +20,7 @@ function default_1(config) {
             if (!fs_1.existsSync(path_2)) {
                 fs_1.mkdirSync(path_2, { recursive: true });
             }
-            route.schemes.forEach(function (schema) {
+            (_a = route.schemes) === null || _a === void 0 ? void 0 : _a.forEach(function (schema) {
                 var file = path_1.join(path_2, schema.name + extension);
                 fs_1.writeFile(file, schema.text, vendors_1.Chalk.log(chalk_1.green, "created " + path_2));
             });

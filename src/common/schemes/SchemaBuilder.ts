@@ -22,34 +22,34 @@ export class SchemaBuilder {
   // * ------------------------------
   public build(name: string): string {
     switch (name) {
-      case 'index':
-      case 'route':
-      case 'router':
-      case 'endpoint':
-        return this.__buildRouter();
+    case 'index':
+    case 'route':
+    case 'router':
+    case 'endpoint':
+      return this.__buildRouter();
 
-      case 'handler':
-      case 'handlers':
-      case 'operation':
-      case 'operations':
-      case 'method':
-      case 'methods':
-        return this.__buildHandlers();
+    case 'handler':
+    case 'handlers':
+    case 'operation':
+    case 'operations':
+    case 'method':
+    case 'methods':
+      return this.__buildHandlers();
 
-      case 'test':
-      case 'tests':
-      case 'spec':
-      case 'specs':
-        return this.__buildTests();
+    case 'test':
+    case 'tests':
+    case 'spec':
+    case 'specs':
+      return this.__buildTests();
 
-      default:
-        throw new InvalidArgumentException(
-          `Couldn't recognize build pattern '${name}'`
-        );
+    default:
+      throw new InvalidArgumentException(
+        `Couldn't recognize build pattern '${name}'`
+      );
     }
   }
 
-  public static userBuild(options: UserOptions) {
+  public static userBuild(options: UserOptions): void {
     const { path, filename, extension, schemesDir } = options;
     const routerSchema = FileManager.readSchema(schemesDir, 'index');
     const handlerSchema = FileManager.readSchema(schemesDir, '.handlers');
@@ -65,7 +65,7 @@ export class SchemaBuilder {
     });
   }
 
-  public static defaultBuild(options: DefaultOptions) {
+  public static defaultBuild(options: DefaultOptions): void {
     const { path, filename, extension, methods, test } = options;
     const routerSchema = new RouterSchema(filename, methods);
     const handlerSchema = new HandlerSchema(filename, methods);
@@ -103,16 +103,16 @@ export class SchemaBuilder {
       this.__name +
       '.handlers";\n\n';
 
-    const routerInstance: string = 'const router = Router();\n';
-    const normalRouter: string = !!normalControllers
+    const routerInstance = 'const router = Router();\n';
+    const normalRouter: string = normalControllers
       ? 'router.route("/").' + normalControllers + ';\n'
       : '';
-    const paramRouter = !!paramControllers
+    const paramRouter = paramControllers
       ? 'router.route("/:id").' + paramControllers + ';\n'
       : '';
     const router: string = routerInstance + normalRouter + paramRouter;
 
-    const exports: string = '\nexport default router;';
+    const exports = '\nexport default router;';
 
     return imports + router + exports;
   }
@@ -127,7 +127,7 @@ export class SchemaBuilder {
   }
 
   private __buildTests(): string {
-    const imports: string = 'import supertest from "supertest";\n\n';
+    const imports = 'import supertest from "supertest";\n\n';
     const tests: string = this.__methods
       .map(
         method =>
@@ -137,7 +137,7 @@ export class SchemaBuilder {
       )
       .join('\n\t');
 
-    const describe: string = `describe("${this.__name} test", () => {\n\t${tests}\n});`;
+    const describe = `describe("${this.__name} test", () => {\n\t${tests}\n});`;
 
     return imports + describe;
   }

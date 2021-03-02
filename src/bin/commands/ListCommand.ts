@@ -84,6 +84,7 @@ export class ListCommand extends CliCommand<ListOptions> {
     }
 
     const msg = (filename: string): string => {
+      // eslint-disable-next-line no-useless-escape
       const file = filename.split(/[\\|\/]/).pop() as string;
       return lstatSync(filename).isDirectory() ? file : ind + '└ ' + file;
     };

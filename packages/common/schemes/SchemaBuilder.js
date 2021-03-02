@@ -71,10 +71,10 @@ var SchemaBuilder = (function () {
             this.__name +
             '.handlers";\n\n';
         var routerInstance = 'const router = Router();\n';
-        var normalRouter = !!normalControllers
+        var normalRouter = normalControllers
             ? 'router.route("/").' + normalControllers + ';\n'
             : '';
-        var paramRouter = !!paramControllers
+        var paramRouter = paramControllers
             ? 'router.route("/:id").' + paramControllers + ';\n'
             : '';
         var router = routerInstance + normalRouter + paramRouter;

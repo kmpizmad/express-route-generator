@@ -9,7 +9,7 @@ var ConfigLoader = (function () {
     }
     ConfigLoader.load = function (files, exception) {
         var file = files.filter(function (file) { return fs_1.existsSync(file) && fs_1.lstatSync(file).isFile(); })[0];
-        if (!!file) {
+        if (file) {
             return require(path_1.join(process.cwd(), file));
         }
         else {

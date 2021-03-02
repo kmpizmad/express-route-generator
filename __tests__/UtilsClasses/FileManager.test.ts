@@ -1,12 +1,13 @@
 import { execSync } from 'child_process';
-import { mkdirSync } from 'fs';
+import { mkdirSync, writeFileSync } from 'fs';
+import { join } from 'path';
 import { FileManager } from '../../src/common/utils/FileManager';
 
 const folder = 'somePath';
 const name = 'index';
 
 beforeAll(() => mkdirSync(folder));
-afterAll(() => execSync(`rm -rf ${folder}`));
+afterAll(() => execSync(`rm -rf ${folder} ${name}`));
 
 describe('FileManager class', () => {
   it('setExtensions(): string[] works', () => {
@@ -17,7 +18,12 @@ describe('FileManager class', () => {
     ]);
   });
 
-  it('readSchema(): string works', () => {});
+  it('readSchema(): string works', () => {
+    writeFileSync(join(folder, name), '');
+    expect(() => {
+      FileManager.readSchema(folder, name);
+    }).not.toThrow();
+  });
 
   it('readSchema(): string throws error', () => {
     expect(() => {

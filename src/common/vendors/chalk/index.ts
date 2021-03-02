@@ -2,7 +2,7 @@ import chalk from 'chalk';
 
 export class Chalk {
   public static log(color: chalk.Chalk, message: string) {
-    return () => {
+    return (): void => {
       Chalk.writeLine(color, message);
     };
   }

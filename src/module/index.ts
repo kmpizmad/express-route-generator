@@ -22,7 +22,7 @@ import { Chalk } from '../common/vendors';
 //   ],
 // };
 
-export default function (config: Config) {
+export default function (config: Config): void {
   // TODO: Runs config and compares to structure
   const routesFolder = normalize(config.rootDir);
   const extension = config.language === 'typescript' ? '.ts' : '.js';
@@ -43,13 +43,13 @@ export default function (config: Config) {
         mkdirSync(path, { recursive: true });
       }
 
-      route.schemes!.forEach(schema => {
+      route.schemes?.forEach(schema => {
         const file = join(path, schema.name + extension);
         writeFile(file, schema.text, Chalk.log(green, `created ${path}`));
       });
     } else if (hasMethods) {
       const methods = Object.getOwnPropertyNames(route.methods).filter(
-        method => (route.methods as any)[method]
+        method => (route.methods as never)[method]
       );
 
       SchemaBuilder.defaultBuild({
