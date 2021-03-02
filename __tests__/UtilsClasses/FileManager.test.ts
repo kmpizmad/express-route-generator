@@ -6,8 +6,8 @@ import { FileManager } from '../../src/common/utils/FileManager';
 const folder = 'somePath';
 const name = 'index';
 
-beforeAll(() => mkdirSync(folder));
-afterAll(() => execSync(`rm -rf ${folder} ${name}`));
+beforeEach(() => mkdirSync(folder));
+afterEach(() => execSync(`rm -rf ${folder} ${name}`));
 
 describe('FileManager class', () => {
   it('setExtensions(): string[] works', () => {
