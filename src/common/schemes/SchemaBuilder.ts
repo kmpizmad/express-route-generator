@@ -1,81 +1,63 @@
-import { join } from 'path';
-import { HandlerSchema, RouterSchema, Schema, TestSchema } from '.';
+import { Schema } from '.';
 import { InvalidArgumentException } from '../errors';
 import { DefaultOptions, UserOptions } from '../types';
-import { ArrayFormatter } from '../utils/ArrayFormatter';
-import { FileManager } from '../utils/FileManager';
+import { ArrayFormatter, FileManager } from '../utils';
 
 export class SchemaBuilder {
-  private __name: string;
-  private __methods: string[];
+  public fileManager: FileManager;
+  public name: string;
+  public methods: string[];
+
   private __normalMethods: string[];
   private __paramMethods: string[];
 
-  constructor(name: string, methods: string[]) {
-    this.__name = name;
-    this.__methods = methods;
-    this.__divideMethods(methods);
+  constructor(fileManager: FileManager) {
+    this.fileManager = fileManager;
   }
 
   // * ------------------------------
   // * PUBLIC MEMBERS
   // * ------------------------------
-  public build(name: string): string {
-    switch (name) {
-    case 'index':
-    case 'route':
-    case 'router':
-    case 'endpoint':
-      return this.__buildRouter();
+  public build(name: string, methods: string[]): [string, string, string] {
+    this.name = name;
+    this.methods = methods;
 
-    case 'handler':
-    case 'handlers':
-    case 'operation':
-    case 'operations':
-    case 'method':
-    case 'methods':
-      return this.__buildHandlers();
-
-    case 'test':
-    case 'tests':
-    case 'spec':
-    case 'specs':
-      return this.__buildTests();
-
-    default:
+    if (methods.length === 0) {
       throw new InvalidArgumentException(
-        `Couldn't recognize build pattern '${name}'`
+        'Expected \'methods\' to have at least 1 item, recieved 0.'
       );
     }
+
+    this.__divideMethods(methods);
+
+    return [this.__buildRouter(), this.__buildHandlers(), this.__buildTests()];
   }
 
-  public static userBuild(options: UserOptions): void {
+  public userBuild(
+    options: UserOptions,
+    callback: (path: string) => void
+  ): void {
     const { path, filename, extension, schemesDir } = options;
-    const routerSchema = FileManager.readSchema(schemesDir, 'index');
-    const handlerSchema = FileManager.readSchema(schemesDir, '.handlers');
-    const testSchema = FileManager.readSchema(schemesDir, '.test');
+    const routerSchema = this.fileManager.readSchema(schemesDir, 'index');
+    const handlerSchema = this.fileManager.readSchema(schemesDir, '.handlers');
+    const testSchema = this.fileManager.readSchema(schemesDir, '.test');
 
     const router = new Schema('index', routerSchema);
     const handlers = new Schema(filename + '.handlers', handlerSchema);
     const test = new Schema(filename + '.test', testSchema);
 
     [router, handlers, test].forEach(schema => {
-      const folder = join(path, filename);
-      schema.build(folder, extension);
+      schema.build(path, extension, callback);
     });
   }
 
-  public static defaultBuild(options: DefaultOptions): void {
-    const { path, filename, extension, methods, test } = options;
-    const routerSchema = new RouterSchema(filename, methods);
-    const handlerSchema = new HandlerSchema(filename, methods);
-    const testSchema = new TestSchema(filename, methods, test);
-
-    const schemes = [routerSchema, handlerSchema, testSchema];
-
+  public defaultBuild(
+    schemes: Schema[],
+    options: DefaultOptions,
+    callback: (path: string) => void
+  ): void {
     schemes.forEach(schema => {
-      const folder = join(path, filename);
-      schema.build(folder, extension);
+      schema.build(options.path, options.extension, callback);
     });
   }
   // * ------------------------------
@@ -86,7 +68,7 @@ export class SchemaBuilder {
   // * PRIVATE MEMBERS
   // * ------------------------------
   private __buildRouter(): string {
-    const allControllers: string = this.__methods
+    const allControllers: string = this.methods
       .map(method => method + 'Handler')
       .join(', ');
     const normalControllers: string = this.__buildOperations(
@@ -100,11 +82,11 @@ export class SchemaBuilder {
       'import { Router } from "express";\nimport { ' +
       allControllers +
       ' } from "./' +
-      this.__name +
+      this.name +
       '.handlers";\n\n';
 
     const routerInstance = 'const router = Router();\n';
-    const normalRouter: string = normalControllers
+    const normalRouter = normalControllers
       ? 'router.route("/").' + normalControllers + ';\n'
       : '';
     const paramRouter = paramControllers
@@ -118,7 +100,7 @@ export class SchemaBuilder {
   }
 
   private __buildHandlers(): string {
-    return this.__methods
+    return this.methods
       .map(
         method =>
           `export const ${method}Handler = async (req, res, next) => {};`
@@ -128,16 +110,16 @@ export class SchemaBuilder {
 
   private __buildTests(): string {
     const imports = 'import supertest from "supertest";\n\n';
-    const tests: string = this.__methods
+    const tests: string = this.methods
       .map(
         method =>
           `it("${method}", async done => {\n\t\tconst response = await supertest(server).${this.__normalizeMethod(
             method
-          )}("/${this.__name}");\n\t\t// Expectations\n\t\tdone();\n\t});`
+          )}("/${this.name}");\n\t\t// Expectations\n\t\tdone();\n\t});`
       )
       .join('\n\t');
 
-    const describe = `describe("${this.__name} test", () => {\n\t${tests}\n});`;
+    const describe = `describe("${this.name} test", () => {\n\t${tests}\n});`;
 
     return imports + describe;
   }

@@ -18,10 +18,7 @@ export interface ListOptions {
 
 export interface DefaultOptions {
   path: string;
-  filename: string;
   extension: string;
-  methods: string[];
-  test: boolean;
 }
 
 export interface UserOptions {

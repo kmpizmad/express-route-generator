@@ -1,75 +1,74 @@
-import { green } from 'chalk';
-// import { Application } from 'express';
-import { existsSync, mkdirSync, writeFile } from 'fs';
-import { join, normalize } from 'path';
-import { SchemaBuilder } from '../common/schemes';
-import { Config } from '../common/types';
-import { Chalk } from '../common/vendors';
+// Import { green } from 'chalk';
+// // Import { Application } from 'express';
+// Import { existsSync, mkdirSync, writeFile } from 'fs';
+// Import { join, normalize } from 'path';
+// Import { SchemaBuilder } from '../common/schemes';
+// Import { Config } from '../common/types';
 
-// const cfg: Config = {
-//   rootDir: 'server/routes',
-//   routes: [
-//     { name: 'myroute', methods: { get: true } },
-//     { name: 'myroute2', methods: { get: true, post: true } },
-//     {
-//       name: 'myroute3',
-//       schemes: [
-//         { name: 'index', text: '' },
-//         { name: 'myHandlers.handlers', text: '' },
-//         { name: 'myHandlers.test', text: '' },
-//       ],
-//     },
-//   ],
-// };
+// // Const cfg: Config = {
+// //   RootDir: 'server/routes',
+// //   Routes: [
+// //     { name: 'myroute', methods: { get: true } },
+// //     { name: 'myroute2', methods: { get: true, post: true } },
+// //     {
+// //       Name: 'myroute3',
+// //       Schemes: [
+// //         { name: 'index', text: '' },
+// //         { name: 'myHandlers.handlers', text: '' },
+// //         { name: 'myHandlers.test', text: '' },
+// //       ],
+// //     },
+// //   ],
+// // };
 
-export default function (config: Config): void {
-  // TODO: Runs config and compares to structure
-  const routesFolder = normalize(config.rootDir);
-  const extension = config.language === 'typescript' ? '.ts' : '.js';
+// Export default function (config: Config): void {
+//   // TODO: Runs config and compares to structure
+//   Const routesFolder = normalize(config.rootDir);
+//   Const extension = config.language === 'typescript' ? '.ts' : '.js';
 
-  if (!existsSync(routesFolder)) {
-    mkdirSync(routesFolder, { recursive: true });
-  }
+//   If (!existsSync(routesFolder)) {
+//     MkdirSync(routesFolder, { recursive: true });
+//   }
 
-  config.routes.forEach(route => {
-    const hasSchemes = route.schemes && route.schemes.length > 0;
-    const hasMethods =
-      route.methods && Object.getOwnPropertyNames(route.methods).length > 0;
+//   Config.routes.forEach(route => {
+//     Const hasSchemes = route.schemes && route.schemes.length > 0;
+//     Const hasMethods =
+//       Route.methods && Object.getOwnPropertyNames(route.methods).length > 0;
 
-    if (hasSchemes) {
-      const path = join(routesFolder, route.name);
+//     If (hasSchemes) {
+//       Const path = join(routesFolder, route.name);
 
-      if (!existsSync(path)) {
-        mkdirSync(path, { recursive: true });
-      }
+//       If (!existsSync(path)) {
+//         MkdirSync(path, { recursive: true });
+//       }
 
-      route.schemes?.forEach(schema => {
-        const file = join(path, schema.name + extension);
-        writeFile(file, schema.text, Chalk.log(green, `created ${path}`));
-      });
-    } else if (hasMethods) {
-      const methods = Object.getOwnPropertyNames(route.methods).filter(
-        method => (route.methods as never)[method]
-      );
+//       Route.schemes?.forEach(schema => {
+//         Const file = join(path, schema.name + extension);
+//         WriteFile(file, schema.text, Chalk.log(green, `created ${path}`));
+//       });
+//     } else if (hasMethods) {
+//       Const methods = Object.getOwnPropertyNames(route.methods).filter(
+//         Method => (route.methods as never)[method]
+//       );
 
-      SchemaBuilder.defaultBuild({
-        path: routesFolder,
-        extension,
-        filename: route.name,
-        methods,
-        test: route.test || true,
-      });
-    } else {
-      // throw error
-    }
-  });
+//       SchemaBuilder.defaultBuild({
+//         Path: routesFolder,
+//         Extension,
+//         Filename: route.name,
+//         Methods,
+//         Test: route.test || true,
+//       });
+//     } else {
+//       // Throw error
+//     }
+//   });
 
-  // return (app: Application) => {
+//   // Return (app: Application) => {
 
-  // };
-}
+//   // };
+// }
 
-// * Creates 'routes' folder
-// * Creates index file which contains every route
-// *  eg. app.use('/users', require('./users'))
-// * Wires every route to the Express app
+// // * Creates 'routes' folder
+// // * Creates index file which contains every route
+// // *  Eg. app.use('/users', require('./users'))
+// // * Wires every route to the Express app

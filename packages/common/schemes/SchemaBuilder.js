@@ -1,66 +1,41 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SchemaBuilder = void 0;
-var path_1 = require("path");
 var _1 = require(".");
 var errors_1 = require("../errors");
-var ArrayFormatter_1 = require("../utils/ArrayFormatter");
-var FileManager_1 = require("../utils/FileManager");
+var utils_1 = require("../utils");
 var SchemaBuilder = (function () {
-    function SchemaBuilder(name, methods) {
-        this.__name = name;
-        this.__methods = methods;
-        this.__divideMethods(methods);
+    function SchemaBuilder(fileManager) {
+        this.fileManager = fileManager;
     }
-    SchemaBuilder.prototype.build = function (name) {
-        switch (name) {
-            case 'index':
-            case 'route':
-            case 'router':
-            case 'endpoint':
-                return this.__buildRouter();
-            case 'handler':
-            case 'handlers':
-            case 'operation':
-            case 'operations':
-            case 'method':
-            case 'methods':
-                return this.__buildHandlers();
-            case 'test':
-            case 'tests':
-            case 'spec':
-            case 'specs':
-                return this.__buildTests();
-            default:
-                throw new errors_1.InvalidArgumentException("Couldn't recognize build pattern '" + name + "'");
+    SchemaBuilder.prototype.build = function (name, methods) {
+        this.name = name;
+        this.methods = methods;
+        if (methods.length === 0) {
+            throw new errors_1.InvalidArgumentException('Expected \'methods\' to have at least 1 item, recieved 0.');
         }
+        this.__divideMethods(methods);
+        return [this.__buildRouter(), this.__buildHandlers(), this.__buildTests()];
     };
-    SchemaBuilder.userBuild = function (options) {
+    SchemaBuilder.prototype.userBuild = function (options, callback) {
         var path = options.path, filename = options.filename, extension = options.extension, schemesDir = options.schemesDir;
-        var routerSchema = FileManager_1.FileManager.readSchema(schemesDir, 'index');
-        var handlerSchema = FileManager_1.FileManager.readSchema(schemesDir, '.handlers');
-        var testSchema = FileManager_1.FileManager.readSchema(schemesDir, '.test');
+        var routerSchema = this.fileManager.readSchema(schemesDir, 'index');
+        var handlerSchema = this.fileManager.readSchema(schemesDir, '.handlers');
+        var testSchema = this.fileManager.readSchema(schemesDir, '.test');
         var router = new _1.Schema('index', routerSchema);
         var handlers = new _1.Schema(filename + '.handlers', handlerSchema);
         var test = new _1.Schema(filename + '.test', testSchema);
         [router, handlers, test].forEach(function (schema) {
-            var folder = path_1.join(path, filename);
-            schema.build(folder, extension);
+            schema.build(path, extension, callback);
         });
     };
-    SchemaBuilder.defaultBuild = function (options) {
-        var path = options.path, filename = options.filename, extension = options.extension, methods = options.methods, test = options.test;
-        var routerSchema = new _1.RouterSchema(filename, methods);
-        var handlerSchema = new _1.HandlerSchema(filename, methods);
-        var testSchema = new _1.TestSchema(filename, methods, test);
-        var schemes = [routerSchema, handlerSchema, testSchema];
+    SchemaBuilder.prototype.defaultBuild = function (schemes, options, callback) {
         schemes.forEach(function (schema) {
-            var folder = path_1.join(path, filename);
-            schema.build(folder, extension);
+            schema.build(options.path, options.extension, callback);
         });
     };
     SchemaBuilder.prototype.__buildRouter = function () {
-        var allControllers = this.__methods
+        var allControllers = this.methods
             .map(function (method) { return method + 'Handler'; })
             .join(', ');
         var normalControllers = this.__buildOperations(this.__normalMethods).join('.');
@@ -68,7 +43,7 @@ var SchemaBuilder = (function () {
         var imports = 'import { Router } from "express";\nimport { ' +
             allControllers +
             ' } from "./' +
-            this.__name +
+            this.name +
             '.handlers";\n\n';
         var routerInstance = 'const router = Router();\n';
         var normalRouter = normalControllers
@@ -82,7 +57,7 @@ var SchemaBuilder = (function () {
         return imports + router + exports;
     };
     SchemaBuilder.prototype.__buildHandlers = function () {
-        return this.__methods
+        return this.methods
             .map(function (method) {
             return "export const " + method + "Handler = async (req, res, next) => {};";
         })
@@ -91,12 +66,12 @@ var SchemaBuilder = (function () {
     SchemaBuilder.prototype.__buildTests = function () {
         var _this = this;
         var imports = 'import supertest from "supertest";\n\n';
-        var tests = this.__methods
+        var tests = this.methods
             .map(function (method) {
-            return "it(\"" + method + "\", async done => {\n\t\tconst response = await supertest(server)." + _this.__normalizeMethod(method) + "(\"/" + _this.__name + "\");\n\t\t// Expectations\n\t\tdone();\n\t});";
+            return "it(\"" + method + "\", async done => {\n\t\tconst response = await supertest(server)." + _this.__normalizeMethod(method) + "(\"/" + _this.name + "\");\n\t\t// Expectations\n\t\tdone();\n\t});";
         })
             .join('\n\t');
-        var describe = "describe(\"" + this.__name + " test\", () => {\n\t" + tests + "\n});";
+        var describe = "describe(\"" + this.name + " test\", () => {\n\t" + tests + "\n});";
         return imports + describe;
     };
     SchemaBuilder.prototype.__buildOperations = function (methods) {
@@ -109,7 +84,7 @@ var SchemaBuilder = (function () {
             : method;
     };
     SchemaBuilder.prototype.__divideMethods = function (methods) {
-        var _a = ArrayFormatter_1.ArrayFormatter.divide(methods, this.__addMethod), normal = _a[0], param = _a[1];
+        var _a = utils_1.ArrayFormatter.divide(methods, this.__addMethod), normal = _a[0], param = _a[1];
         this.__normalMethods = normal;
         this.__paramMethods = param;
     };

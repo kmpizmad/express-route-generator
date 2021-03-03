@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 
+import { green, red } from 'chalk';
 import { Command } from 'commander';
+import { SchemaBuilder } from '../common/schemes';
 import { AddOptions, ListOptions, RemoveOptions } from '../common/types';
+import { ConfigLoader, FileManager } from '../common/utils';
 import { AddCommand, ListCommand, RemoveCommand } from './commands';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -24,8 +27,15 @@ program
   .option('--no-test', 'prevents generation of test file')
   .action((name, options: AddOptions) => {
     try {
-      const command = new AddCommand(name, options);
-      command.run();
+      const schemaBuilder = new SchemaBuilder(new FileManager());
+      const command = new AddCommand(
+        name,
+        options,
+        new ConfigLoader(),
+        schemaBuilder,
+        schemaBuilder.fileManager.setExtensions('erg.config', ['.js', '.json'])
+      );
+      command.run(file => console.log(green(`created ${file}`)));
     } catch (err) {
       console.log(err.message);
     }
@@ -41,8 +51,15 @@ program
   .option('-t, --test', 'removes test file only')
   .action((name, options: RemoveOptions) => {
     try {
-      const command = new RemoveCommand(name, options);
-      command.run();
+      const schemaBuilder = new SchemaBuilder(new FileManager());
+      const command = new RemoveCommand(
+        name,
+        options,
+        new ConfigLoader(),
+        schemaBuilder,
+        schemaBuilder.fileManager.setExtensions('erg.config', ['.js', '.json'])
+      );
+      command.run(file => console.log(red(`removed ${file}`)));
     } catch (err) {
       console.log(err.message);
     }
@@ -56,7 +73,13 @@ program
   .option('-r, --recursive', 'recursively prints folders and files')
   .action((options: ListOptions) => {
     try {
-      const command = new ListCommand(options);
+      const schemaBuilder = new SchemaBuilder(new FileManager());
+      const command = new ListCommand(
+        options,
+        new ConfigLoader(),
+        schemaBuilder,
+        schemaBuilder.fileManager.setExtensions('erg.config', ['.js', '.json'])
+      );
       command.run();
     } catch (err) {
       console.log(err.message);

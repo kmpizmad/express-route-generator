@@ -8,7 +8,7 @@ export class ConfigLoader {
    * Load the first file that exists or throws an error
    * @param files files to search from first to last
    */
-  public static load(files: string[], exception?: Exception): ConfigFile {
+  public load(files: string[], exception?: Exception): ConfigFile {
     const file = files.filter(
       file => existsSync(file) && lstatSync(file).isFile()
     )[0];

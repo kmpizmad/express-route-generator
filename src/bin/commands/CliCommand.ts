@@ -1,30 +1,37 @@
 import { Exception } from '../../common/errors';
+import { SchemaBuilder } from '../../common/schemes';
 import { ConfigFile } from '../../common/types';
-import { ConfigLoader } from '../../common/utils/ConfigLoader';
-import { FileManager } from '../../common/utils/FileManager';
+import { ConfigLoader } from '../../common/utils';
 
 export abstract class CliCommand<T> {
+  protected _options: T;
+  protected _configLoader: ConfigLoader;
+  protected _schemaBuilder: SchemaBuilder;
   protected _config: ConfigFile | undefined;
 
-  constructor(public options: T, loadConfig: boolean, exception: Exception) {
-    this._config = this.__setupCommand(loadConfig, exception);
+  constructor(
+    options: T,
+    configLoader: ConfigLoader,
+    schemaBuilder: SchemaBuilder,
+    files: string[],
+    loadConfig: boolean,
+    exception?: Exception
+  ) {
+    this._options = options;
+    this._configLoader = configLoader;
+    this._schemaBuilder = schemaBuilder;
+    this._config = this.__loadConfig(files, loadConfig, exception);
   }
 
   // * ------------------------------
   // * PRIVATE MEMBERS
   // * ------------------------------
-  private __setupCommand(
+  private __loadConfig(
+    arr: string[],
     condition: boolean,
     exception?: Exception
   ): ConfigFile | undefined {
-    if (condition) {
-      return ConfigLoader.load(
-        FileManager.setExtensions('erg.config', ['.js', '.json']),
-        exception
-      );
-    } else {
-      return undefined;
-    }
+    return condition ? this._configLoader.load(arr, exception) : undefined;
   }
   // * ------------------------------
   // * END OF PRIVATE MEMBERS
@@ -33,7 +40,7 @@ export abstract class CliCommand<T> {
   // * ------------------------------
   // * ABSTRACT MEMBERS
   // * ------------------------------
-  public abstract run(): void;
+  public abstract run(callback: (path: string) => void): void;
   // * ------------------------------
   // * END OF ABSTRACT MEMBERS
   // * ------------------------------

@@ -7,10 +7,10 @@ var errors_1 = require("../errors");
 var FileManager = (function () {
     function FileManager() {
     }
-    FileManager.setExtensions = function (filename, extensions) {
+    FileManager.prototype.setExtensions = function (filename, extensions) {
         return extensions.map(function (extension) { return filename + extension; });
     };
-    FileManager.readSchema = function (schemesDir, filename) {
+    FileManager.prototype.readSchema = function (schemesDir, filename) {
         if (fs_1.existsSync(schemesDir) && fs_1.lstatSync(schemesDir).isDirectory()) {
             var schemes = fs_1.readdirSync(schemesDir);
             var path = path_1.join(schemesDir, schemes.filter(function (file) { return file.includes(filename); }).join(''));

@@ -60,9 +60,9 @@
     "package": "rm -rf package-lock.json && yarn install",
     "git": "git add . && git commit -m",
     "lint": "eslint . --fix",
-    "test": "jest --detectOpenHandles",
+    "test": "yarn lint && jest --detectOpenHandles",
     "test:coveralls": "yarn test --coverage && coveralls < __coverage__/lcov.info",
-    "build": "rm -rf packages && tsc --project .",
+    "build": "yarn lint && rm -rf packages && tsc --project .",
     "deploy": "git push && git push --tags && npm publish"
   }
 }

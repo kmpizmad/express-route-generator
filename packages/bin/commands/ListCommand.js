@@ -20,17 +20,16 @@ var chalk_1 = require("chalk");
 var fs_1 = require("fs");
 var path_1 = require("path");
 var errors_1 = require("../../common/errors");
-var vendors_1 = require("../../common/vendors");
 var CliCommand_1 = require("./CliCommand");
 var ListCommand = (function (_super) {
     __extends(ListCommand, _super);
-    function ListCommand(options) {
-        return _super.call(this, options, !options.path, new errors_1.MissingParamsException('--path <path>')) || this;
+    function ListCommand(options, configLoader, schemaBuilder, files) {
+        return _super.call(this, options, configLoader, schemaBuilder, files, !options.path, new errors_1.MissingParamsException('--path <path>')) || this;
     }
     ListCommand.prototype.run = function () {
         var _a;
-        var path = this.options.path || ((_a = this._config) === null || _a === void 0 ? void 0 : _a.rootDir);
-        var recursive = this.options.recursive;
+        var path = this._options.path || ((_a = this._config) === null || _a === void 0 ? void 0 : _a.rootDir);
+        var recursive = this._options.recursive;
         if (path) {
             this.__list(path, recursive);
         }
@@ -41,14 +40,14 @@ var ListCommand = (function (_super) {
             this.__recursiveListing(path, 0, function (file, ind, isDir) {
                 if (ind === 0)
                     return;
-                else
-                    vendors_1.Chalk.writeLine(isDir ? chalk_1.yellow : chalk_1.white, _this.__createMsg(file, ind));
+                else {
+                    var color = isDir ? chalk_1.yellow : chalk_1.white;
+                    console.log(color(_this.__createMsg(file, ind)));
+                }
             });
         }
         else {
-            this.__listHandler(path, function (files) {
-                return vendors_1.Chalk.writeLine(chalk_1.yellow, files.join('  '));
-            });
+            this.__listHandler(path, function (files) { return console.log(chalk_1.yellow(files.join('  '))); });
         }
     };
     ListCommand.prototype.__listHandler = function (path, callback) {

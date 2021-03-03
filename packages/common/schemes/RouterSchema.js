@@ -17,13 +17,12 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RouterSchema = void 0;
 var Schema_1 = require("./Schema");
-var SchemaBuilder_1 = require("./SchemaBuilder");
 var RouterSchema = (function (_super) {
     __extends(RouterSchema, _super);
-    function RouterSchema(filename, methods) {
+    function RouterSchema(methods, schemaBuilder) {
         var _this = this;
-        var schemaBuilder = new SchemaBuilder_1.SchemaBuilder(filename, methods);
-        _this = _super.call(this, 'index', schemaBuilder.build('router')) || this;
+        var router = schemaBuilder.build('index', methods)[0];
+        _this = _super.call(this, 'index', router) || this;
         return _this;
     }
     return RouterSchema;

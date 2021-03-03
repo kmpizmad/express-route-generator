@@ -1,6 +1,13 @@
+import { join } from 'path';
 import { Exception, MissingParamsException } from '../../common/errors';
-import { SchemaBuilder } from '../../common/schemes';
+import {
+  HandlerSchema,
+  RouterSchema,
+  SchemaBuilder,
+  TestSchema,
+} from '../../common/schemes';
 import { AddOptions } from '../../common/types';
+import { ConfigLoader } from '../../common/utils';
 import { CliCommand } from './CliCommand';
 
 export class AddCommand extends CliCommand<AddOptions> {
@@ -35,18 +42,30 @@ export class AddCommand extends CliCommand<AddOptions> {
   // * END OF STATIC MEMBERS
   // * ------------------------------
 
-  constructor(public name: string, options: AddOptions) {
+  private __name: string;
+
+  constructor(
+    name: string,
+    options: AddOptions,
+    configLoader: ConfigLoader,
+    schemaBuilder: SchemaBuilder,
+    files: string[]
+  ) {
     super(
       options,
+      configLoader,
+      schemaBuilder,
+      files,
       AddCommand.__isMissing(options.path, options.schemes, options.methods),
       AddCommand.__exception
     );
+    this.__name = name;
   }
 
   // * ------------------------------
   // * PUBLIC MEMBERS
   // * ------------------------------
-  public run(): void {
+  public run(callback: (path: string) => void): void {
     const setup = this.__setup();
 
     if (setup.stillMissing) {
@@ -58,22 +77,35 @@ export class AddCommand extends CliCommand<AddOptions> {
     }
 
     if (setup.path && setup.schemes) {
-      SchemaBuilder.userBuild({
-        path: setup.path,
-        filename: this.name,
-        extension: setup.extension,
-        schemesDir: setup.schemes,
-      });
+      this._schemaBuilder.userBuild(
+        {
+          path: setup.path,
+          filename: this.__name,
+          extension: setup.extension,
+          schemesDir: setup.schemes,
+        },
+        callback
+      );
     }
 
     if (setup.path && setup.methods) {
-      SchemaBuilder.defaultBuild({
-        path: setup.path,
-        filename: this.name,
-        extension: setup.extension,
-        methods: setup.methods,
-        test: setup.testFile,
-      });
+      this._schemaBuilder.defaultBuild(
+        [
+          new RouterSchema(setup.methods, this._schemaBuilder),
+          new HandlerSchema(this.__name, setup.methods, this._schemaBuilder),
+          new TestSchema(
+            this.__name,
+            setup.methods,
+            this._schemaBuilder,
+            setup.testFile
+          ),
+        ],
+        {
+          path: join(setup.path, this.__name),
+          extension: setup.extension,
+        },
+        callback
+      );
     }
   }
   // * ------------------------------
@@ -85,16 +117,16 @@ export class AddCommand extends CliCommand<AddOptions> {
   // * ------------------------------
   private __setup() {
     const isTypescript =
-      this.options.typescript || this._config?.language === 'typescript';
+      this._options.typescript || this._config?.language === 'typescript';
     const hasTestFile =
-      this._config?.test !== undefined && this.options.test
+      this._config?.test !== undefined && this._options.test
         ? this._config?.test
-        : this.options.test;
+        : this._options.test;
 
     // Set values
-    const path = this.options.path || this._config?.rootDir;
-    const schemes = this.options.schemes || this._config?.schemesDir;
-    const methods = this.options.methods || this._config?.methods;
+    const path = this._options.path || this._config?.rootDir;
+    const schemes = this._options.schemes || this._config?.schemesDir;
+    const methods = this._options.methods || this._config?.methods;
     const extension = isTypescript ? '.ts' : '.js';
     const testFile = hasTestFile;
 

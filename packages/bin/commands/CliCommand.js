@@ -1,20 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CliCommand = void 0;
-var ConfigLoader_1 = require("../../common/utils/ConfigLoader");
-var FileManager_1 = require("../../common/utils/FileManager");
 var CliCommand = (function () {
-    function CliCommand(options, loadConfig, exception) {
-        this.options = options;
-        this._config = this.__setupCommand(loadConfig, exception);
+    function CliCommand(options, configLoader, schemaBuilder, files, loadConfig, exception) {
+        this._options = options;
+        this._configLoader = configLoader;
+        this._schemaBuilder = schemaBuilder;
+        this._config = this.__loadConfig(files, loadConfig, exception);
     }
-    CliCommand.prototype.__setupCommand = function (condition, exception) {
-        if (condition) {
-            return ConfigLoader_1.ConfigLoader.load(FileManager_1.FileManager.setExtensions('erg.config', ['.js', '.json']), exception);
-        }
-        else {
-            return undefined;
-        }
+    CliCommand.prototype.__loadConfig = function (arr, condition, exception) {
+        return condition ? this._configLoader.load(arr, exception) : undefined;
     };
     return CliCommand;
 }());

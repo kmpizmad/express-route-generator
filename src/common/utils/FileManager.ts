@@ -3,14 +3,11 @@ import { join } from 'path';
 import { DirectoryNotFoundException, FileNotFoundException } from '../errors';
 
 export class FileManager {
-  public static setExtensions(
-    filename: string,
-    extensions: string[]
-  ): string[] {
+  public setExtensions(filename: string, extensions: string[]): string[] {
     return extensions.map(extension => filename + extension);
   }
 
-  public static readSchema(schemesDir: string, filename: string): string {
+  public readSchema(schemesDir: string, filename: string): string {
     if (existsSync(schemesDir) && lstatSync(schemesDir).isDirectory()) {
       const schemes = readdirSync(schemesDir);
       const path = join(

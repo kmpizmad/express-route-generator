@@ -17,13 +17,12 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HandlerSchema = void 0;
 var Schema_1 = require("./Schema");
-var SchemaBuilder_1 = require("./SchemaBuilder");
 var HandlerSchema = (function (_super) {
     __extends(HandlerSchema, _super);
-    function HandlerSchema(filename, methods) {
+    function HandlerSchema(filename, methods, schemaBuilder) {
         var _this = this;
-        var schemaBuilder = new SchemaBuilder_1.SchemaBuilder(filename, methods);
-        _this = _super.call(this, filename + '.handlers', schemaBuilder.build('handlers')) || this;
+        var _a = schemaBuilder.build(filename, methods), handlers = _a[1];
+        _this = _super.call(this, filename + '.handlers', handlers) || this;
         return _this;
     }
     return HandlerSchema;

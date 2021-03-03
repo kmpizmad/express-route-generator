@@ -2,8 +2,8 @@ import { Schema } from './Schema';
 import { SchemaBuilder } from './SchemaBuilder';
 
 export class RouterSchema extends Schema {
-  constructor(filename: string, methods: string[]) {
-    const schemaBuilder = new SchemaBuilder(filename, methods);
-    super('index', schemaBuilder.build('router'));
+  constructor(methods: string[], schemaBuilder: SchemaBuilder) {
+    const [router] = schemaBuilder.build('index', methods);
+    super('index', router);
   }
 }

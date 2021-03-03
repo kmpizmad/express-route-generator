@@ -23,5 +23,5 @@
     "typeRoots": ["node_modules/@types"]
   },
   "include": ["src"],
-  "exclude": ["node_modules", "packages", "**/*.test.ts"]
+  "exclude": ["node_modules", "packages", "src/**/__mocks__", "**/*.test.ts"]
 }

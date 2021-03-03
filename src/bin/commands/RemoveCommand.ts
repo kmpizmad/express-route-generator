@@ -1,30 +1,46 @@
-import { red } from 'chalk';
 import { existsSync, lstatSync, readdirSync, rm } from 'fs';
 import { join } from 'path';
 import {
   FileNotFoundException,
   MissingParamsException,
 } from '../../common/errors';
+import { SchemaBuilder } from '../../common/schemes';
 import { RemoveOptions } from '../../common/types';
-import { Chalk } from '../../common/vendors';
+import { ConfigLoader } from '../../common/utils';
 import { CliCommand } from './CliCommand';
 
 export class RemoveCommand extends CliCommand<RemoveOptions> {
-  constructor(public name: string, options: RemoveOptions) {
-    super(options, !options.path, new MissingParamsException('--path <path>'));
+  private __name: string;
+
+  constructor(
+    name: string,
+    options: RemoveOptions,
+    configLoader: ConfigLoader,
+    schemaBuilder: SchemaBuilder,
+    files: string[]
+  ) {
+    super(
+      options,
+      configLoader,
+      schemaBuilder,
+      files,
+      !options.path,
+      new MissingParamsException('--path <path>')
+    );
+    this.__name = name;
   }
 
   // * ------------------------------
   // * PUBLIC MEMBERS
   // * ------------------------------
-  public run(): void {
-    const path = this.options.path || this._config?.rootDir;
-    const test = this.options.test || this._config?.test;
+  public run(callback: (path: string) => void): void {
+    const path = this._options.path || this._config?.rootDir;
+    const test = this._options.test || this._config?.test;
 
     if (path) {
-      const folder = join(path, this.name);
+      const folder = join(path, this.__name);
       if (existsSync(folder) && lstatSync(folder).isDirectory()) {
-        this.__remove(folder, test);
+        this.__remove(folder, test, callback);
       } else {
         throw new FileNotFoundException(`${folder} is not a directory!`);
       }
@@ -39,22 +55,26 @@ export class RemoveCommand extends CliCommand<RemoveOptions> {
   // * ------------------------------
   // * PRIVATE MEMBERS
   // * ------------------------------
-  private __remove(folder: string, test?: boolean): void {
+  private __remove(
+    folder: string,
+    test: boolean | undefined,
+    callback: (path: string) => void
+  ): void {
     if (test) {
-      this.__removeFile(folder);
+      this.__removeFile(folder, callback);
     } else {
-      this.__removeDir(folder);
+      this.__removeDir(folder, callback);
     }
   }
 
-  private __removeFile(folder: string): void {
-    const filename = this.name + '.test';
+  private __removeFile(folder: string, callback: (path: string) => void): void {
+    const filename = this.__name + '.test';
     const files = readdirSync(folder);
     const testFile = files.filter(file => file.includes(filename)).join('');
     const filePath = join(folder, testFile);
 
     if (lstatSync(filePath).isFile()) {
-      rm(filePath, Chalk.log(red, `deleted ${filePath}`));
+      rm(filePath, () => callback(filePath));
     } else {
       const dotIndex = files[0].lastIndexOf('.');
       const extension = files[0].substring(dotIndex);
@@ -65,8 +85,8 @@ export class RemoveCommand extends CliCommand<RemoveOptions> {
     }
   }
 
-  private __removeDir(folder: string): void {
-    rm(folder, { recursive: true }, Chalk.log(red, `deleted ${folder}`));
+  private __removeDir(folder: string, callback: (path: string) => void): void {
+    rm(folder, { recursive: true }, () => callback(folder));
   }
   // * ------------------------------
   // * END OF PRIVATE MEMBERS

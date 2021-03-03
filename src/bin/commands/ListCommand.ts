@@ -6,21 +6,34 @@ import {
   FileNotFoundException,
   MissingParamsException,
 } from '../../common/errors';
+import { SchemaBuilder } from '../../common/schemes';
 import { ListOptions } from '../../common/types';
-import { Chalk } from '../../common/vendors';
+import { ConfigLoader } from '../../common/utils';
 import { CliCommand } from './CliCommand';
 
 export class ListCommand extends CliCommand<ListOptions> {
-  constructor(options: ListOptions) {
-    super(options, !options.path, new MissingParamsException('--path <path>'));
+  constructor(
+    options: ListOptions,
+    configLoader: ConfigLoader,
+    schemaBuilder: SchemaBuilder,
+    files: string[]
+  ) {
+    super(
+      options,
+      configLoader,
+      schemaBuilder,
+      files,
+      !options.path,
+      new MissingParamsException('--path <path>')
+    );
   }
 
   // * ------------------------------
   // * PUBLIC MEMBERS
   // * ------------------------------
   public run(): void {
-    const path = this.options.path || this._config?.rootDir;
-    const recursive = this.options.recursive;
+    const path = this._options.path || this._config?.rootDir;
+    const recursive = this._options.recursive;
 
     if (path) {
       this.__list(path, recursive);
@@ -37,13 +50,13 @@ export class ListCommand extends CliCommand<ListOptions> {
     if (recursive) {
       this.__recursiveListing(path, 0, (file, ind, isDir) => {
         if (ind === 0) return;
-        else
-          Chalk.writeLine(isDir ? yellow : white, this.__createMsg(file, ind));
+        else {
+          const color = isDir ? yellow : white;
+          console.log(color(this.__createMsg(file, ind)));
+        }
       });
     } else {
-      this.__listHandler(path, files =>
-        Chalk.writeLine(yellow, files.join('  '))
-      );
+      this.__listHandler(path, files => console.log(yellow(files.join('  '))));
     }
   }
 
