@@ -59,7 +59,7 @@ Keep in mind, that due to maintenance it's better to use it from the npm registr
 
 ### Options Reference
 
-##### `-t, --test` [boolean]
+#### `-t, --test` [boolean]
 
 Default: `false`
 
@@ -76,7 +76,7 @@ routes
   └ myRoute.handlers.js
 ```
 
-##### `-r, --recursive` [boolean]
+#### `-r, --recursive` [boolean]
 
 Default: `false`
 
@@ -109,7 +109,7 @@ myRoute3
 
 ### Configuration Reference
 
-##### `rootDir` [string]
+#### `rootDir` [string]
 
 Default: `undefined`
 
@@ -120,7 +120,7 @@ Examples:
 - `rootDir: ./server/routes`
 - `rootDir: ./server/api/endpoints`
 
-##### `schemesDir` [string]
+#### `schemesDir` [string]
 
 Default: `undefined`
 
@@ -131,7 +131,7 @@ Examples:
 - `schemesDir: ./schemes`
 - `schemesDir: ./server/routes/schemes`
 
-##### `language` [string]
+#### `language` [string]
 
 Default: `javascript`
 
@@ -154,7 +154,7 @@ routes
   └ myRoute.test.js
 ```
 
-##### `test` [boolean]
+#### `test` [boolean]
 
 Default: `true`
 
@@ -171,7 +171,7 @@ routes
   └ myRoute.handlers.js
 ```
 
-##### `methods` [array<string>]
+#### `methods` [array<string>]
 
 Default: `undefined`
 
