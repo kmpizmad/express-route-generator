@@ -3,6 +3,7 @@ import { Exception, MissingParamsException } from '../../common/errors';
 import {
   HandlerSchema,
   RouterSchema,
+  Schema,
   SchemaBuilder,
   TestSchema,
 } from '../../common/schemes';
@@ -32,12 +33,12 @@ export class AddCommand extends CliCommand<AddOptions> {
   private static __pathWithSchemes = (
     path: string | undefined,
     schemes: string | undefined
-  ) => path && schemes;
+  ) => !!path && !!schemes;
 
   private static __pathWithMethods = (
     path: string | undefined,
     methods: string[] | undefined
-  ) => path && methods;
+  ) => !!path && methods && methods.length > 0;
   // * ------------------------------
   // * END OF STATIC MEMBERS
   // * ------------------------------
@@ -77,21 +78,42 @@ export class AddCommand extends CliCommand<AddOptions> {
     }
 
     if (setup.path && setup.schemes) {
-      this._schemaBuilder.userBuild(
+      this._schemaBuilder.build(
+        [
+          new Schema(
+            this.__name,
+            this._schemaBuilder.fileManager.readSchema(
+              setup.schemes,
+              this.__name
+            )
+          ),
+          new Schema(
+            this.__name,
+            this._schemaBuilder.fileManager.readSchema(
+              setup.schemes,
+              this.__name + '.handlers'
+            )
+          ),
+          new Schema(
+            this.__name,
+            this._schemaBuilder.fileManager.readSchema(
+              setup.schemes,
+              this.__name + '.test'
+            )
+          ),
+        ],
         {
           path: setup.path,
-          filename: this.__name,
           extension: setup.extension,
-          schemesDir: setup.schemes,
         },
         callback
       );
     }
 
     if (setup.path && setup.methods) {
-      this._schemaBuilder.defaultBuild(
+      this._schemaBuilder.build(
         [
-          new RouterSchema(setup.methods, this._schemaBuilder),
+          new RouterSchema(this.__name, setup.methods, this._schemaBuilder),
           new HandlerSchema(this.__name, setup.methods, this._schemaBuilder),
           new TestSchema(
             this.__name,

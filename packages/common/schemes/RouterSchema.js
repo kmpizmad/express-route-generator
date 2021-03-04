@@ -19,9 +19,9 @@ exports.RouterSchema = void 0;
 var Schema_1 = require("./Schema");
 var RouterSchema = (function (_super) {
     __extends(RouterSchema, _super);
-    function RouterSchema(methods, schemaBuilder) {
+    function RouterSchema(filename, methods, schemaBuilder) {
         var _this = this;
-        var router = schemaBuilder.build('index', methods)[0];
+        var router = schemaBuilder.buildSchema(filename, methods)[0];
         _this = _super.call(this, 'index', router) || this;
         return _this;
     }

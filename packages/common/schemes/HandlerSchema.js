@@ -21,7 +21,7 @@ var HandlerSchema = (function (_super) {
     __extends(HandlerSchema, _super);
     function HandlerSchema(filename, methods, schemaBuilder) {
         var _this = this;
-        var _a = schemaBuilder.build(filename, methods), handlers = _a[1];
+        var _a = schemaBuilder.buildSchema(filename, methods), handlers = _a[1];
         _this = _super.call(this, filename + '.handlers', handlers) || this;
         return _this;
     }

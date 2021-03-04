@@ -57,7 +57,7 @@ var TestSchema = (function (_super) {
     __extends(TestSchema, _super);
     function TestSchema(filename, methods, schemaBuilder, condition) {
         var _this = this;
-        var _a = schemaBuilder.build(filename, methods), tests = _a[2];
+        var _a = schemaBuilder.buildSchema(filename, methods), tests = _a[2];
         _this = _super.call(this, filename + '.test', tests) || this;
         _this.__condition = condition;
         return _this;

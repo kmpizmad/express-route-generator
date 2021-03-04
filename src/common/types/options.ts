@@ -16,14 +16,7 @@ export interface ListOptions {
   recursive: boolean;
 }
 
-export interface DefaultOptions {
+export interface BuildOptions {
   path: string;
   extension: string;
-}
-
-export interface UserOptions {
-  path: string;
-  filename: string;
-  extension: string;
-  schemesDir: string;
 }

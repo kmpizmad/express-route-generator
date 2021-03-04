@@ -9,6 +9,7 @@ jest.mock('../../../src/common/schemes/Schema');
 
 describe('RouterSchema', () => {
   const schema = new RouterSchema(
+    'sample',
     ['get'],
     new SchemaBuilder(new FileManager())
   );

@@ -1,6 +1,6 @@
 import { Schema } from '.';
 import { InvalidArgumentException } from '../errors';
-import { DefaultOptions, UserOptions } from '../types';
+import { BuildOptions } from '../types';
 import { ArrayFormatter, FileManager } from '../utils';
 
 export class SchemaBuilder {
@@ -18,7 +18,20 @@ export class SchemaBuilder {
   // * ------------------------------
   // * PUBLIC MEMBERS
   // * ------------------------------
-  public build(name: string, methods: string[]): [string, string, string] {
+  public async build(
+    schemes: Schema[],
+    options: BuildOptions,
+    callback: (path: string) => void
+  ): Promise<void> {
+    schemes.forEach(schema => {
+      schema.build(options.path, options.extension, callback);
+    });
+  }
+
+  public buildSchema(
+    name: string,
+    methods: string[]
+  ): [string, string, string] {
     this.name = name;
     this.methods = methods;
 
@@ -31,34 +44,6 @@ export class SchemaBuilder {
     this.__divideMethods(methods);
 
     return [this.__buildRouter(), this.__buildHandlers(), this.__buildTests()];
-  }
-
-  public userBuild(
-    options: UserOptions,
-    callback: (path: string) => void
-  ): void {
-    const { path, filename, extension, schemesDir } = options;
-    const routerSchema = this.fileManager.readSchema(schemesDir, 'index');
-    const handlerSchema = this.fileManager.readSchema(schemesDir, '.handlers');
-    const testSchema = this.fileManager.readSchema(schemesDir, '.test');
-
-    const router = new Schema('index', routerSchema);
-    const handlers = new Schema(filename + '.handlers', handlerSchema);
-    const test = new Schema(filename + '.test', testSchema);
-
-    [router, handlers, test].forEach(schema => {
-      schema.build(path, extension, callback);
-    });
-  }
-
-  public defaultBuild(
-    schemes: Schema[],
-    options: DefaultOptions,
-    callback: (path: string) => void
-  ): void {
-    schemes.forEach(schema => {
-      schema.build(options.path, options.extension, callback);
-    });
   }
   // * ------------------------------
   // * END OF PUBLIC MEMBERS

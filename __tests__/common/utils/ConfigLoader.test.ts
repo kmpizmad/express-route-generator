@@ -1,5 +1,5 @@
 import { FileNotFoundException } from '../../../src/common/errors';
-import { ConfigLoader } from '../../../src/common/utils/ConfigLoader';
+import { ConfigLoader } from '../../../src/common/utils';
 
 describe('ConfigLoader', () => {
   const configLoader = new ConfigLoader();

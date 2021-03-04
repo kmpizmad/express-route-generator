@@ -7,7 +7,7 @@ export class HandlerSchema extends Schema {
     methods: string[],
     schemaBuilder: SchemaBuilder
   ) {
-    const [, handlers] = schemaBuilder.build(filename, methods);
+    const [, handlers] = schemaBuilder.buildSchema(filename, methods);
     super(filename + '.handlers', handlers);
   }
 }

@@ -1,20 +1,18 @@
 import { Config, ConfigFile, Methods, Route } from './config';
 import {
   AddOptions,
-  DefaultOptions,
+  BuildOptions,
   ListOptions,
   RemoveOptions,
-  UserOptions,
 } from './options';
 
 export {
   AddOptions,
+  BuildOptions,
   Config,
   ConfigFile,
-  DefaultOptions,
   ListOptions,
   Methods,
   RemoveOptions,
   Route,
-  UserOptions,
 };

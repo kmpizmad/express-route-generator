@@ -10,7 +10,7 @@ export class TestSchema extends Schema {
     schemaBuilder: SchemaBuilder,
     condition: boolean
   ) {
-    const [, , tests] = schemaBuilder.build(filename, methods);
+    const [, , tests] = schemaBuilder.buildSchema(filename, methods);
     super(filename + '.test', tests);
     this.__condition = condition;
   }

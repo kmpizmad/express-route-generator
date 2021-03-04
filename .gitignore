@@ -122,3 +122,4 @@ __coverage__
 erg.config.*
 src/module
 src/index.ts
+__tests__/bin

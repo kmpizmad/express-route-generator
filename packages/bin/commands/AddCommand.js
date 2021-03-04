@@ -36,16 +36,18 @@ var AddCommand = (function (_super) {
             throw new errors_1.MissingParamsException('--methods <methods...>');
         }
         if (setup.path && setup.schemes) {
-            this._schemaBuilder.userBuild({
+            this._schemaBuilder.build([
+                new schemes_1.Schema(this.__name, this._schemaBuilder.fileManager.readSchema(setup.schemes, this.__name)),
+                new schemes_1.Schema(this.__name, this._schemaBuilder.fileManager.readSchema(setup.schemes, this.__name + '.handlers')),
+                new schemes_1.Schema(this.__name, this._schemaBuilder.fileManager.readSchema(setup.schemes, this.__name + '.test')),
+            ], {
                 path: setup.path,
-                filename: this.__name,
                 extension: setup.extension,
-                schemesDir: setup.schemes,
             }, callback);
         }
         if (setup.path && setup.methods) {
-            this._schemaBuilder.defaultBuild([
-                new schemes_1.RouterSchema(setup.methods, this._schemaBuilder),
+            this._schemaBuilder.build([
+                new schemes_1.RouterSchema(this.__name, setup.methods, this._schemaBuilder),
                 new schemes_1.HandlerSchema(this.__name, setup.methods, this._schemaBuilder),
                 new schemes_1.TestSchema(this.__name, setup.methods, this._schemaBuilder, setup.testFile),
             ], {
