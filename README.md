@@ -78,6 +78,8 @@ routes
 
 ##### `-r, --recursive` [boolean]
 
+Default: `false`
+
 Recursively lists every route.
 
 Example:
@@ -95,10 +97,7 @@ myRoute3
   └ index.js
   └ myRoute3.handlers.js
   └ myRoute3.test.js
-
 ```
-
-Default: `false`
 
 ## Configuration
 
